@@ -8,82 +8,43 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as TableOverviewRouteImport } from './routes/tableOverview'
+import { Route as CandleSticksRouteImport } from './routes/candleSticks'
+import { Route as IndexRouteImport } from './routes/index'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as TableOverviewImport } from './routes/tableOverview'
-import { Route as CandleSticksImport } from './routes/candleSticks'
-import { Route as IndexImport } from './routes/index'
-
-// Create/Update Routes
-
-const TableOverviewRoute = TableOverviewImport.update({
+const TableOverviewRoute = TableOverviewRouteImport.update({
   id: '/tableOverview',
   path: '/tableOverview',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const CandleSticksRoute = CandleSticksImport.update({
+const CandleSticksRoute = CandleSticksRouteImport.update({
   id: '/candleSticks',
   path: '/candleSticks',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const IndexRoute = IndexImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/candleSticks': {
-      id: '/candleSticks'
-      path: '/candleSticks'
-      fullPath: '/candleSticks'
-      preLoaderRoute: typeof CandleSticksImport
-      parentRoute: typeof rootRoute
-    }
-    '/tableOverview': {
-      id: '/tableOverview'
-      path: '/tableOverview'
-      fullPath: '/tableOverview'
-      preLoaderRoute: typeof TableOverviewImport
-      parentRoute: typeof rootRoute
-    }
-  }
-}
-
-// Create and export the route tree
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/candleSticks': typeof CandleSticksRoute
   '/tableOverview': typeof TableOverviewRoute
 }
-
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/candleSticks': typeof CandleSticksRoute
   '/tableOverview': typeof TableOverviewRoute
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute
+  __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/candleSticks': typeof CandleSticksRoute
   '/tableOverview': typeof TableOverviewRoute
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths: '/' | '/candleSticks' | '/tableOverview'
@@ -92,11 +53,36 @@ export interface FileRouteTypes {
   id: '__root__' | '/' | '/candleSticks' | '/tableOverview'
   fileRoutesById: FileRoutesById
 }
-
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CandleSticksRoute: typeof CandleSticksRoute
   TableOverviewRoute: typeof TableOverviewRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/tableOverview': {
+      id: '/tableOverview'
+      path: '/tableOverview'
+      fullPath: '/tableOverview'
+      preLoaderRoute: typeof TableOverviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/candleSticks': {
+      id: '/candleSticks'
+      path: '/candleSticks'
+      fullPath: '/candleSticks'
+      preLoaderRoute: typeof CandleSticksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -104,31 +90,6 @@ const rootRouteChildren: RootRouteChildren = {
   CandleSticksRoute: CandleSticksRoute,
   TableOverviewRoute: TableOverviewRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/",
-        "/candleSticks",
-        "/tableOverview"
-      ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/candleSticks": {
-      "filePath": "candleSticks.tsx"
-    },
-    "/tableOverview": {
-      "filePath": "tableOverview.tsx"
-    }
-  }
-}
-ROUTE_MANIFEST_END */

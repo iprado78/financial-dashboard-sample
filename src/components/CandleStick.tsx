@@ -1,33 +1,67 @@
-import { useRef, useState } from 'react'
-import { AgChartInstance, AgFinancialChartOptions, AgPriceVolumeChartType } from 'ag-charts-enterprise'
-import { AgFinancialCharts } from 'ag-charts-react'
-import DemoData from '../data/candleStick/aapl.json'
-import 'ag-charts-enterprise'
+import { useIsDarkMode } from "@/stores/DarkModeStore";
+import {
+  AgChartInstance,
+  AgFinancialChartOptions,
+  AgPriceVolumeChartType,
+} from "ag-charts-enterprise";
+import { AgFinancialCharts } from "ag-charts-react";
+import { useEffect, useRef, useState } from "react";
 
-export default function CandleStick({ height = 500, title = 'AAPL' }: { height: number; title: string }) {
-	const chartRef = useRef<AgChartInstance>(null)
+import "ag-charts-enterprise";
 
-	const getData = (data: any[]) => {
-		return data.map((data) => ({ date: new Date(data[0]), open: data[1], high: data[2], low: data[3], close: data[4], volume: Math.random() * 1000 + 100 }))
-	}
+type CandleStickEntry = [number, number, number, number, number];
 
-	const [options] = useState<AgFinancialChartOptions>({
-		data: getData(DemoData),
-		title: { text: title },
-		chartType: 'candlestick' as AgPriceVolumeChartType,
-		navigator: true, // disabled by default!
-		toolbar: true,
-		rangeButtons: true,
-		volume: true,
-		statusBar: true,
-		zoom: true,
-		height: height,
-		theme: 'ag-financial-dark' // dark mode: 'ag-financial-dark' | light mode: 'ag-financial'
-	})
+interface CandleStickProps {
+  title: string;
+  data: CandleStickEntry[];
+  height?: number;
+  width?: string;
+}
 
-	return (
-		<div>
-			<AgFinancialCharts options={options} ref={chartRef} />
-		</div>
-	)
+export default function CandleStick({
+  height = 500,
+  title,
+  data,
+  width = "100%",
+}: CandleStickProps) {
+  const chartRef = useRef<AgChartInstance>(null);
+  const isDarkMode = useIsDarkMode();
+
+  const getData = (rawData: CandleStickEntry[]) => {
+    return rawData.map((item) => ({
+      date: new Date(item[0]),
+      open: item[1],
+      high: item[2],
+      low: item[3],
+      close: item[4],
+      volume: Math.random() * 1000 + 100,
+    }));
+  };
+
+  const [options, setOptions] = useState<AgFinancialChartOptions>({
+    data: getData(data),
+    title: { text: title },
+    chartType: "candlestick" as AgPriceVolumeChartType,
+    navigator: true,
+    toolbar: true,
+    rangeButtons: true,
+    volume: true,
+    statusBar: true,
+    zoom: true,
+    height: height,
+    theme: isDarkMode ? "ag-financial-dark" : "ag-financial",
+  });
+
+  useEffect(() => {
+    setOptions((prev) => ({
+      ...prev,
+      theme: isDarkMode ? "ag-financial-dark" : "ag-financial",
+    }));
+  }, [isDarkMode]);
+
+  return (
+    <div style={{ width }}>
+      <AgFinancialCharts options={options} ref={chartRef} />
+    </div>
+  );
 }

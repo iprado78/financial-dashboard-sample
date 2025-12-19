@@ -1,20 +1,18 @@
-import CandleStick from '@/components/CandleStick'
-import Table from '@/components/Table'
-import { createFileRoute } from '@tanstack/react-router'
+import { TradesTable } from "@/grids/trades/tradesTable";
 
-export const Route = createFileRoute('/')({
-	component: RouteComponent
-})
+import { createFileRoute } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/")({
+  component: RouteComponent,
+});
 
 function RouteComponent() {
-	return (
-		<div className="p-4">
-			<h1 className="text-2xl font-bold mb-6">Financial Data Dashboard</h1>
-			<div className="space-y-4">
-				<Table />
-			</div>
-			Candle Stick Charts
-			<CandleStick height={500} title={'AAPL'} />
-		</div>
-	)
+  return (
+    <div className="p-6 w-full">
+      <h1 className="text-3xl font-bold mb-6">Trade Table</h1>
+      <div className="w-full">
+        <TradesTable />
+      </div>
+    </div>
+  );
 }

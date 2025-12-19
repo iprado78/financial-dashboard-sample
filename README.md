@@ -1,10 +1,6 @@
-# Engineers Gate Take-Home Test
+# Financial Dashboard
 
-Welcome to the Engineers Gate Frontend Development Challenge!
-
-## About Engineers Gate
-
-Engineers Gate is a cutting-edge quantitative hedge fund where technology drives alpha generation. We operate in a fast-paced, high-performance environment. Our engineering teams work with large datasets, real-time market feeds, and complex trading algorithms to deliver exceptional results in the financial markets. Our goal is to test your skills, give you an opportunity to show off your talents, and ultimately make a hiring decision based on your work!
+A modern trading dashboard application built with React, featuring real-time trade tables, portfolio analytics, and interactive candlestick charts.
 
 ## Getting Started
 
@@ -77,106 +73,90 @@ pnpm run dev
 ```
 
 
-## Overview
+## Features
 
-You will build **3 specific pages** for a trading dashboard:
+### Pages
 
-1. **Home Page** - Display a trades table with the title "Trade Table"
-2. **Table Overview Page** - Display 4 separate tables: Credit, Holdings, Risk, and Transactions
-3. **Candlestick Charts Page** - Display 3 stock charts: AAPL, MSFT, and TSLA
+#### Home Page (`/`)
+- Interactive trades table displaying real-time trading data
+- Sortable columns and filtering capabilities
+- Responsive layout with light/dark mode support
 
-You'll also enhance the navigation with a logo, tabs, breadcrumb, and light/dark mode toggle.
+#### Table Overview Page (`/tableOverview`)
+- Four comprehensive data tables:
+  - **Credit Table** - Credit positions and limits
+  - **Holdings Table** - Current portfolio holdings
+  - **Risk Table** - Risk metrics and exposure
+  - **Transactions Table** - Transaction history
+- Clean, organized layout with consistent styling
 
-All data is provided as JSON files - just load and display them. No backend or API needed.
-Sample table and candle stick components are provided as well. You will need to update these to support different datasets and make them reusable.
+#### Candlestick Charts Page (`/candleSticks`)
+- Dynamic candlestick chart visualization
+- Multi-select dropdown to choose stock symbols
+- Interactive charts with zoom, pan, and range selection
+- Real-time data loading for selected symbols
+- Removable symbol pills for easy management
 
-## Evaluation Criteria
+### Navigation
 
-You will be graded primarily on **design and organization**. We're looking to assess how you structure components, organize layouts, and create intuitive user experiences.
-We are NOT focused on how the data is organized, stored, cached or loaded apart from basic functionality.
-We are NOT focused on page routing. Basic page routing is provided.
-We ARE evaluating your implementation of light and dark mode.
-We ARE evaluating your ability to layout a page in an organized way.
-We ARE evaluating your ability to create reusable components and expand upon a pre-existing code base.
+- Clean navigation header with page tabs
+- Breadcrumb navigation for easy orientation
+- Light/Dark mode toggle with persistent theme preference
+- Responsive design for various screen sizes
 
-## Requirements
+### Technical Features
 
-### Pages to Build
-
-#### 1. Home Page (`/`)
-
-- Display the trades table using data from `@/data/homePage/trades.json`
-- Include the title "Trade Table"
-- Ensure the page is well formatted
-- Support light/dark mode
-
-#### 2. Table Overview Page (`/tableOverview`)
-
-- Display **4 separate tables**: Credit, Holdings, Risk, and Transactions
-- Data is located at `@/data/tableOverview/`
-- Each table should include a title "Credit Table", "Holdings Table", etc...
-- Organize tables in a visually appealing layout
-- Support light/dark mode
-
-#### 3. Candlestick Charts Page (`/candleSticks`)
-
-- Display **3 candlestick charts**: AAPL, MSFT, and TSLA
-- Data is located at `@/data/candleStick/`
-- Label each chart with the stock symbol
-- Organize charts in a visually appealing layout
-- Support light/dark mode
-
-### Navigation Requirements
-
-Create a navigation component (header or sidebar) that includes:
-
-- Company logo (component provided)
-- Navigation tabs for page switching (component provided)
-- Light/Dark mode toggle switch (component provided)
-- Breadcrumb navigation (component provided)
-- Make sure these elements are consistent on every page
-- Use the provided components. Update as needed.
-- Support light/dark mode
-
-### Theme Requirements
-
-- **Dark mode is the default theme**
-- Both light and dark modes should be supported
-- Ensure consistent styling across both themes
-
-### Technical Requirements
-
-- Clean, organized component structure
-- Update the provided table and candlestick components to be reusable
-- Proper use of React patterns and best practices
-- Consistent code formatting
-- **Browser Support:** Latest Chrome browser only
-- Responsive design
+- Built with React and TypeScript
+- TailwindCSS for styling
+- AG Grid for advanced table functionality
+- AG Charts for financial data visualization
+- TanStack Router for client-side routing
+- Headless UI for accessible components
 
 ## Tech Stack
 
-- React: https://react.dev/
-- Tailwind: https://tailwindcss.com/
-- TanStack Router: https://tanstack.com/router/latest
-- AgGrid: https://www.ag-grid.com/
+- **React** - UI library ([react.dev](https://react.dev/))
+- **TypeScript** - Type safety and better developer experience
+- **TailwindCSS** - Utility-first CSS framework ([tailwindcss.com](https://tailwindcss.com/))
+- **TanStack Router** - Type-safe routing ([tanstack.com/router](https://tanstack.com/router/latest))
+- **AG Grid** - Advanced data grid ([ag-grid.com](https://www.ag-grid.com/))
+- **AG Charts** - Financial charting library
+- **Headless UI** - Accessible UI components
 
-Feel free to update and change ANY component. AI, UI libraries and any other external tools are fair game. Use any tool necessary to complete this assignment. All work must be your own.
-This assessment has some ambiguity. That is by design. If there is something that is NOT clear to you, do your best to come up with a solution.
-It's ok to make some assumptions and to make this project your own.
+## Project Structure
 
-## Submission Instructions
+```
+src/
+├── components/        # Reusable UI components
+├── data/             # JSON data files
+│   ├── candleStick/  # Stock price data
+│   ├── homePage/     # Trades data
+│   └── tableOverview/# Table data files
+├── grids/            # AG Grid table configurations
+├── routes/           # Page components
+├── services/         # Business logic and data services
+└── stores/           # State management
+```
 
-1. **Fork this repository** to your GitHub account
-2. Complete the take-home test requirements in your forked repository
-3. Ensure your code is committed and pushed to your fork
-4. **Submit the link to your public forked repository** to the Engineers Gate team
-5. Make sure your repository is **public** so we can access and review your work
+## Available Scripts
 
-**Before submitting:**
+```bash
+# Start development server
+pnpm run dev
 
-- Test that your application runs successfully with `pnpm install` and `pnpm run build`
-- Verify all three pages are functional and properly styled
-- Ensure both light and dark modes work correctly
-- Double-check that your navigation components are working as expected
+# Build for production
+pnpm run build
 
-Good luck! We're excited to see your approach to building this application.
+# Preview production build
+pnpm run preview
+
+# Run TypeScript type checking
+pnpm run typecheck
+
+# Run linter
+pnpm run lint
+```
+
+## Browser Support
+
+Optimized for the latest version of Chrome. Other modern browsers should work but are not officially supported.

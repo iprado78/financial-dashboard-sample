@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "typecheck": "tsc --noEmit",
     "preview": "vite preview"
   },
   "dependencies": {
     "@ag-grid-community/theming": "^32.2.2",
+    "@anthropic-ai/sdk": "^0.71.2",
     "@bufbuild/protobuf": "^2.3.0",
     "@cloudscape-design/board-components": "^3.0.87",
     "@cloudscape-design/components": "^3.0.871",
