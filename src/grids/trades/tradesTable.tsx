@@ -1,5 +1,6 @@
-import Table from "@/components/Table";
+import Table from "@/components/Table/Table";
 import { TRADES_COLUMN_DEFS } from "@/grids/trades/tradesColumnDefs";
+import { getTradesRowStyle } from "@/grids/trades/getTradesRowStyle";
 import { tradesService } from "@/services/singletonServices";
 import { useSyncExternalStore } from "react";
 
@@ -11,11 +12,9 @@ export const TradesTable = () => {
   );
   return (
     <Table
-      title="Trades"
       data={trades}
       columnDefs={TRADES_COLUMN_DEFS}
-      tableName="trades"
-      height="600px"
+      getRowStyle={getTradesRowStyle}
     />
   );
 };

@@ -1,60 +1,69 @@
-import Table from "@/components/Table";
-import creditData from "@/data/tableOverview/credit.json";
-import holdingsData from "@/data/tableOverview/holdings.json";
-import riskData from "@/data/tableOverview/risk.json";
-import transactionsData from "@/data/tableOverview/transactions.json";
-import { CREDIT_COLUMN_DEFS } from "@/grids/credit/creditColumnDefs";
-import { HOLDINGS_COLUMN_DEFS } from "@/grids/holdings/holdingsColumnDefs";
-import { RISK_COLUMN_DEFS } from "@/grids/risk/riskColumnDefs";
-import { TRANSACTIONS_COLUMN_DEFS } from "@/grids/transactions/transactionsColumnDefs";
+import RouteLayout from "@/components/RouteLayout/RouteLayout";
+import { HoldingsTable } from "@/grids/holdings/holdingsTable";
+import { TransactionsTable } from "@/grids/transactions/transactionsTable";
+import { CreditTable } from "@/grids/credit/creditTable";
+import { RiskTable } from "@/grids/risk/riskTable";
+import {
+  useSelectedTables,
+  useTableLayout,
+  addTable,
+  removeTable,
+  setTableLayout,
+} from "@/stores/TableOverviewStore";
 import { createFileRoute } from "@tanstack/react-router";
+import { Layout } from "react-grid-layout";
 
 export const Route = createFileRoute("/tableOverview")({
-  component: RouteComponent,
+  component: TableOverviewRoute,
 });
 
-function RouteComponent() {
+const AVAILABLE_TABLES = ["credit", "holdings", "risk", "transactions"];
+
+const TABLE_COMPONENTS: Record<string, React.ReactNode> = {
+  holdings: <HoldingsTable />,
+  transactions: <TransactionsTable />,
+  credit: <CreditTable />,
+  risk: <RiskTable />,
+};
+
+function TableOverviewRoute() {
+  const selectedTables = useSelectedTables();
+  const layout = useTableLayout();
+
+  const handleTableSelect = (tableName: string) => {
+    if (selectedTables.includes(tableName)) return;
+    addTable(tableName);
+  };
+
+  const handleTableRemove = (tableName: string) => {
+    removeTable(tableName);
+  };
+
+  const handleLayoutChange = (newLayout: Layout[]) => {
+    setTableLayout(newLayout);
+  };
+
+  const itemsData = selectedTables.map((tableName) => ({
+    id: tableName,
+    title: tableName.charAt(0).toUpperCase() + tableName.slice(1),
+    content: TABLE_COMPONENTS[tableName],
+  }));
+
   return (
-    <div className="p-6 w-full">
-      <h1 className="text-3xl font-bold mb-6">Table Overview</h1>
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <div className="w-full">
-          <Table
-            title="Credit"
-            data={creditData}
-            columnDefs={CREDIT_COLUMN_DEFS}
-            tableName="credit"
-            height="500px"
-          />
-        </div>
-        <div className="w-full">
-          <Table
-            title="Holdings"
-            data={holdingsData}
-            columnDefs={HOLDINGS_COLUMN_DEFS}
-            tableName="holdings"
-            height="500px"
-          />
-        </div>
-        <div className="w-full">
-          <Table
-            title="Risk"
-            data={riskData}
-            columnDefs={RISK_COLUMN_DEFS}
-            tableName="risk"
-            height="500px"
-          />
-        </div>
-        <div className="w-full">
-          <Table
-            title="Transactions"
-            data={transactionsData}
-            columnDefs={TRANSACTIONS_COLUMN_DEFS}
-            tableName="transactions"
-            height="500px"
-          />
-        </div>
-      </div>
-    </div>
+    <RouteLayout
+      title="Table Overview"
+      selectedItems={selectedTables}
+      itemsData={itemsData}
+      layout={layout}
+      onLayoutChange={handleLayoutChange}
+      availableItems={AVAILABLE_TABLES}
+      onItemSelect={handleTableSelect}
+      onItemRemove={handleTableRemove}
+      formatLabel={(item) => item.charAt(0).toUpperCase() + item.slice(1)}
+      itemSelectorTitle="Tables"
+      emptyStateIcon="table"
+      emptyStateTitle="No Tables Selected"
+      emptyStateDescription="Get started by adding tables to view your financial data."
+    />
   );
 }

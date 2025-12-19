@@ -1,15 +1,18 @@
 import { Listener, ObservableValue } from "@/utils/ObservableValue";
-import tradesData from "@/data/homePage/trades.json";
+import { generateTrades } from "@/data/generateTrades";
 
-export interface ITrade {
+export interface ITrade extends Record<string, unknown> {
   id: string;
-  status: "Pending" | "Filled" | "Cancelled";
+  status: "Pending" | "Accepted" | "Rejected" | "Partial" | "Cancelled - Partial" | "Cancelled - No Fill" | "Filled";
   accountId: string;
   positionId: string;
   price: number;
   quantity: number;
+  filledQty: number;
+  unfilledQty: number;
   side: "Buy" | "Sell";
   ticker: string;
+  trader: string;
   orderTime: string;
   lastUpdate: string;
   currency: "USD" | "EUR" | "GBP" | "JPY";
@@ -23,7 +26,7 @@ export class TradesService {
   }
 
   loadSnapshot = async () => {
-    const trades = await Promise.resolve(tradesData as ITrade[]);
+    const trades = generateTrades();
     this.#trades$.next(trades);
   };
 

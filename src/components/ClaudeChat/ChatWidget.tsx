@@ -49,9 +49,9 @@ export default function ChatWidget({ onSendMessage, onClearChat, messages, isLoa
 	}
 
 	return (
-		<div className="fixed top-20 right-0 w-full md:w-96 bg-white dark:bg-slate-800 border-l border-slate-200 dark:border-slate-700 shadow-xl z-40 flex flex-col h-[calc(100vh-5rem)]">
+		<div className="w-full h-full bg-white dark:bg-slate-800 flex flex-col">
 			{/* Header */}
-			<div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+			<div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 flex-shrink-0">
 				<div className="flex items-center space-x-2">
 					<ChatBubbleLeftRightIcon className="h-5 w-5 text-blue-600" />
 					<h3 className="font-semibold">Claude Assistant</h3>
@@ -113,7 +113,7 @@ export default function ChatWidget({ onSendMessage, onClearChat, messages, isLoa
 			</div>
 
 			{/* Input */}
-			<form onSubmit={handleSubmit} className="p-4 border-t border-slate-200 dark:border-slate-700">
+			<form onSubmit={handleSubmit} className="p-4 border-t border-slate-200 dark:border-slate-700 flex-shrink-0">
 				<div className="flex space-x-2">
 					<input
 						type="text"

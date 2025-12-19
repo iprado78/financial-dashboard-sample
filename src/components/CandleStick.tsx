@@ -19,13 +19,15 @@ interface CandleStickProps {
 }
 
 export default function CandleStick({
-  height = 500,
+  height,
   title,
   data,
   width = "100%",
 }: CandleStickProps) {
   const chartRef = useRef<AgChartInstance>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const isDarkMode = useIsDarkMode();
+  const [containerHeight, setContainerHeight] = useState(height || 500);
 
   const getData = (rawData: CandleStickEntry[]) => {
     return rawData.map((item) => ({
@@ -48,7 +50,7 @@ export default function CandleStick({
     volume: true,
     statusBar: true,
     zoom: true,
-    height: height,
+    height: containerHeight,
     theme: isDarkMode ? "ag-financial-dark" : "ag-financial",
   });
 
@@ -59,8 +61,33 @@ export default function CandleStick({
     }));
   }, [isDarkMode]);
 
+  useEffect(() => {
+    if (!height && containerRef.current) {
+      const resizeObserver = new ResizeObserver((entries) => {
+        const entry = entries[0];
+        if (entry) {
+          setContainerHeight(entry.contentRect.height);
+        }
+      });
+      resizeObserver.observe(containerRef.current);
+      return () => resizeObserver.disconnect();
+    }
+  }, [height]);
+
+  useEffect(() => {
+    setOptions((prev) => ({
+      ...prev,
+      height: containerHeight,
+    }));
+  }, [containerHeight]);
+
   return (
-    <div style={{ width }}>
+    <div
+      ref={containerRef}
+      style={{ width }}
+      className={height ? "" : "h-full"}
+      {...(height && { style: { width, height: `${height}px` } })}
+    >
       <AgFinancialCharts options={options} ref={chartRef} />
     </div>
   );
