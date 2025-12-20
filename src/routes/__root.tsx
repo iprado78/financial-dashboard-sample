@@ -30,7 +30,7 @@ function RouteComponent() {
       <Header />
 
       {/* Main Content */}
-      <main className="container mx-auto md:pr-96 mt-8">
+      <main className="mt-8 px-8 md:pr-[calc(24rem+4rem)]">
         <Outlet />
       </main>
 

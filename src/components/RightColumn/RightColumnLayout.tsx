@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 
 export default function RightColumnLayout({ children }: PropsWithChildren) {
   return (
-    <aside className="fixed right-4 top-24 bottom-4 w-96 flex flex-col border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl shadow-lg z-40 overflow-hidden">
+    <aside className="fixed right-8 top-24 bottom-8 w-96 flex flex-col border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-xl shadow-lg z-40 overflow-hidden">
       {children && (
         <div className="flex-shrink-0 overflow-y-auto border-b border-slate-200 dark:border-slate-700 max-h-[40vh]">
           {children}

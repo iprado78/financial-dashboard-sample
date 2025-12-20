@@ -1,10 +1,10 @@
-import { TradesTable } from "@/grids/trades/TradesTable";
-import GridLayout, { GridItem } from "@/components/GridLayout/GridLayout";
 import GridCard from "@/components/GridLayout/GridCard";
+import GridLayout, { GridItem } from "@/components/GridLayout/GridLayout";
+import { RouteLayoutWrapper } from "@/components/RouteLayout/RouteLayoutWrapper";
+import { TradesTable } from "@/grids/trades/tradesTable";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Layout } from "react-grid-layout";
-import { RouteLayoutWrapper } from "@/components/RouteLayout/RouteLayoutWrapper";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
