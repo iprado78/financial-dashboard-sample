@@ -10,11 +10,48 @@ module.exports = {
   ],
   prefix: "",
   safelist: [
+    // Base background colors for status indicators
     "bg-success",
     "bg-error",
     "bg-warning",
     "bg-info",
     "bg-neutral",
+    // Light/dark variants for colored pills (light mode)
+    "bg-success-light",
+    "bg-success-dark",
+    "bg-error-light",
+    "bg-error-dark",
+    "bg-warning-light",
+    "bg-warning-dark",
+    "bg-info-light",
+    "bg-info-dark",
+    // Light/dark variants for colored pills (dark mode)
+    "dark:bg-success-light",
+    "dark:bg-success-dark",
+    "dark:bg-error-light",
+    "dark:bg-error-dark",
+    "dark:bg-warning-light",
+    "dark:bg-warning-dark",
+    "dark:bg-info-light",
+    "dark:bg-info-dark",
+    // Text colors for colored pills (light mode)
+    "text-success-dark",
+    "text-success-light",
+    "text-error-dark",
+    "text-error-light",
+    "text-warning-dark",
+    "text-warning-light",
+    "text-info-dark",
+    "text-info-light",
+    // Text colors for colored pills (dark mode)
+    "dark:text-success-dark",
+    "dark:text-success-light",
+    "dark:text-error-dark",
+    "dark:text-error-light",
+    "dark:text-warning-dark",
+    "dark:text-warning-light",
+    "dark:text-info-dark",
+    "dark:text-info-light",
   ],
   theme: {
     extend: {
