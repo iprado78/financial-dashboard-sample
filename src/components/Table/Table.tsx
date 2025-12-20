@@ -13,7 +13,7 @@ import { useIsDarkMode } from "@/stores/DarkModeStore";
 interface TableProps<T extends Record<string, unknown>> {
   data: T[];
   columnDefs: ColDef[];
-  rowIdField?: string;
+  rowIdField: keyof T | ((record: T) => string);
   height?: string;
   width?: string;
   paginationPageSize?: number;
@@ -32,7 +32,7 @@ const defaultColDef = {
 export default function Table<T extends Record<string, unknown>>({
   data,
   columnDefs,
-  rowIdField = "id",
+  rowIdField,
   height,
   width = "100%",
   paginationPageSize = 50,
@@ -49,7 +49,13 @@ export default function Table<T extends Record<string, unknown>>({
     columnDefs: columnDefs,
     defaultColDef: defaultColDef,
     rowData: data,
-    getRowId: (params: any) => params.data[rowIdField],
+    getRowId: (params) => {
+      if (typeof rowIdField === "function") {
+        return rowIdField(params.data);
+      } else {
+        return params.data[rowIdField];
+      }
+    },
     getRowStyle: getRowStyle,
     pagination: true,
     paginationPageSize: paginationPageSize,

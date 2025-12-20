@@ -9,10 +9,5 @@ export const RiskTable = () => {
     riskService.getRisks,
     riskService.getRisks
   );
-  return (
-    <Table
-      data={risks}
-      columnDefs={RISK_COLUMN_DEFS}
-    />
-  );
+  return <Table rowIdField={"id"} data={risks} columnDefs={RISK_COLUMN_DEFS} />;
 };

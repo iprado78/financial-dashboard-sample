@@ -1,5 +1,25 @@
 import { Listener, ObservableValue } from "@/utils/ObservableValue";
-import { generateRisk, IRisk } from "@/data/generateRisk";
+import { generateRisk } from "@/data/generateRisk";
+
+export const RISK_TYPES = [
+  "Market Risk",
+  "Credit Risk",
+  "Operational Risk",
+  "Liquidity Risk",
+] as const;
+
+export type RiskType = (typeof RISK_TYPES)[number];
+export interface IRisk extends Record<string, unknown> {
+  id: string;
+  portfolioId: string;
+  riskType: RiskType;
+  VaR: number;
+  expectedShortfall: number;
+  volatility: number;
+  beta: number;
+  correlation: number;
+  riskDate: string;
+}
 
 export class RiskService {
   #risks$: ObservableValue<IRisk[]>;

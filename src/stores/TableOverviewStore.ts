@@ -47,10 +47,10 @@ const useTableOverviewStore = create<State & Actions>((set) => {
           // Add new grid item for this table
           const index = state.selectedTables.length;
           const col = (index % 2) * 6;
-          const row = Math.floor(index / 2) * 5;
+          const row = Math.floor(index / 2) * 6;
           const newLayout = [
             ...state.layout,
-            { i: tableName, x: col, y: row, w: 6, h: 5, minW: 4, minH: 3 },
+            { i: tableName, x: col, y: row, w: 6, h: 6, minW: 6, minH: 6 },
           ];
           setNestedValue(["layout"], newLayout);
 

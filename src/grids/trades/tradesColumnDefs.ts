@@ -1,8 +1,11 @@
 import { ColDef } from "ag-grid-community";
-import { createCompanyLogoCellRenderer } from "../common/cellRenderer/companyLogo/CompanyLogoCellRenderer";
-import { StatusCellRenderer } from "./cellRenderer/status/StatusCellRenderer";
+import { createCompanyLogoWithTextCellRenderer } from "../common/cellRenderer/createCompanyLogoWithTextCellRenderer";
 import { ITrade } from "@/services/trades/TradesService";
 import { quantityFormatter } from "@/grids/common/valueFormatter/numberFormatter";
+import { createBinaryCellClassRules } from "@/grids/common/cellClass/createBinaryCellClassRules";
+import { createColoredPillCellRenderer } from "@/grids/common/cellRenderer/createColoredPillCellRenderer";
+import { getTradeStatusColorClass } from "@/services/trades/tradesColors";
+import { createIndicatorColDef } from "@/grids/common/colDef/createIndicatorColDef";
 
 // Currency symbol mapping
 const CURRENCY_SYMBOLS: Record<ITrade["currency"], string> = {
@@ -18,27 +21,29 @@ function getCurrencySymbol(currency: string): string {
 }
 
 export const TRADES_COLUMN_DEFS: ColDef[] = [
+  createIndicatorColDef<ITrade, "status">({
+    field: "status",
+    getColor: getTradeStatusColorClass,
+  }),
   { field: "trader", headerName: "Trader", minWidth: 100 },
   { field: "accountId", headerName: "Account ID", minWidth: 120 },
   { field: "positionId", headerName: "Position ID", minWidth: 120 },
   {
     field: "ticker",
-    headerName: "",
-    minWidth: 55,
-    maxWidth: 55,
-    cellRenderer: createCompanyLogoCellRenderer({ fieldName: "ticker" }),
-    sortable: false,
-    filter: false,
-    resizable: false,
-    suppressSizeToFit: true,
-    cellClass: "!pr-0",
+    headerName: "Ticker",
+    minWidth: 135,
+    cellRenderer: createCompanyLogoWithTextCellRenderer({
+      fieldName: "ticker",
+    }),
   },
-  { field: "ticker", headerName: "Ticker", minWidth: 80 },
   {
     field: "status",
     headerName: "Status",
     minWidth: 180,
-    cellRenderer: StatusCellRenderer,
+    cellRenderer: createColoredPillCellRenderer<ITrade, "status">({
+      field: "status",
+      getStyles: getTradeStatusColorClass,
+    }),
   },
   {
     field: "price",
@@ -73,10 +78,10 @@ export const TRADES_COLUMN_DEFS: ColDef[] = [
     headerName: "Side",
     minWidth: 80,
     cellClass: "font-medium",
-    cellClassRules: {
-      "!text-success": (params) => params.value?.toUpperCase() === "BUY",
-      "!text-error": (params) => params.value?.toUpperCase() === "SELL",
-    },
+    cellClassRules: createBinaryCellClassRules({
+      successValue: "BUY",
+      errorValue: "SELL",
+    }),
   },
 
   {

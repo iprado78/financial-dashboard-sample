@@ -1,4 +1,4 @@
-export const useLocalStorage = (key: string) => {
+export function useLocalStorage(key: string) {
 	// MARK: Single Value methods
 	const setItem = (value: any) => {
 		if (typeof window !== 'undefined') {

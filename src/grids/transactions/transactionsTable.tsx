@@ -11,6 +11,7 @@ export const TransactionsTable = () => {
   );
   return (
     <Table
+      rowIdField={"id"}
       data={transactions}
       columnDefs={TRANSACTIONS_COLUMN_DEFS}
     />

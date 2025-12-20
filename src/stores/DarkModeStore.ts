@@ -21,7 +21,7 @@ interface Actions {
   };
 }
 
-const getInitalDarkMode = () => {
+function getInitalDarkMode() {
   // Also sets document class for dark mode on initial load
   const { getNestedValue } = useLocalStorage("globalSettings");
   const initalDarkMode =
@@ -33,7 +33,7 @@ const getInitalDarkMode = () => {
     ? document.documentElement.classList.add("dark")
     : document.documentElement.classList.remove("dark");
   return initalDarkMode;
-};
+}
 
 const useDarkModeStore = create<State & Actions>((set) => {
   const { getNestedValue, setNestedValue } = useLocalStorage("globalSettings");

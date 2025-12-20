@@ -1,21 +1,39 @@
 import { Listener, ObservableValue } from "@/utils/ObservableValue";
 import { generateTrades } from "@/data/generateTrades";
 
+export const TRADE_STATUSES = [
+  "PENDING",
+  "ACCEPTED",
+  "PARTIAL",
+  "CANCELLED",
+  "FILLED",
+] as const;
+
+export type TradeStatus = (typeof TRADE_STATUSES)[number];
+
+export const TRADE_SIDES = ["BUY", "SELL"] as const;
+
+export type TradeSide = (typeof TRADE_SIDES)[number];
+
+export const TRADE_CURRENCIES = ["USD", "EUR", "GBP", "JPY"] as const;
+
+export type TradeCurrency = (typeof TRADE_CURRENCIES)[number];
+
 export interface ITrade extends Record<string, unknown> {
   id: string;
-  status: "Pending" | "Accepted" | "Rejected" | "Partial" | "Cancelled - Partial" | "Cancelled - No Fill" | "Filled";
+  status: TradeStatus;
   accountId: string;
   positionId: string;
   price: number;
   quantity: number;
   filledQty: number;
   unfilledQty: number;
-  side: "Buy" | "Sell";
+  side: TradeSide;
   ticker: string;
   trader: string;
   orderTime: string;
   lastUpdate: string;
-  currency: "USD" | "EUR" | "GBP" | "JPY";
+  currency: TradeCurrency;
 }
 
 export class TradesService {

@@ -3,7 +3,7 @@ import GridLayout from "@/components/GridLayout/GridLayout";
 import GridCard from "@/components/GridLayout/GridCard";
 import EmptyState from "@/components/EmptyState";
 import RightColumnLayout from "@/components/RightColumn/RightColumnLayout";
-import LayoutItemSelector from "@/components/RightColumn/LayoutItemSelector";
+import LayoutItemSelector from "@/components/LayoutItemSelector/LayoutItemSelector";
 import { Layout } from "react-grid-layout";
 import { GridItem } from "@/components/GridLayout/GridLayout";
 import { RouteLayoutWrapper } from "@/components/RouteLayout/RouteLayoutWrapper";
@@ -45,7 +45,6 @@ export default function RouteLayout({
   onItemRemove,
   formatLabel,
   itemSelectorTitle,
-  chatHeight = "60%",
   emptyStateIcon,
   emptyStateTitle,
   emptyStateDescription,
@@ -105,7 +104,7 @@ export default function RouteLayout({
         )}
       </RouteLayoutWrapper>
 
-      <RightColumnLayout chatHeight={chatHeight}>
+      <RightColumnLayout>
         <LayoutItemSelector
           title={itemSelectorTitle}
           availableItems={availableItems}

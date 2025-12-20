@@ -1,4 +1,4 @@
-import { TradesTable } from "@/grids/trades/tradesTable";
+import { TradesTable } from "@/grids/trades/TradesTable";
 import GridLayout, { GridItem } from "@/components/GridLayout/GridLayout";
 import GridCard from "@/components/GridLayout/GridCard";
 import { createFileRoute } from "@tanstack/react-router";

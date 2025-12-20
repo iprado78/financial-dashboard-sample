@@ -1,6 +1,6 @@
 import RouteLayout from "@/components/RouteLayout/RouteLayout";
 import { HoldingsTable } from "@/grids/holdings/holdingsTable";
-import { TransactionsTable } from "@/grids/transactions/transactionsTable";
+import { TransactionsTable } from "@/grids/transactions/TransactionsTable";
 import { CreditTable } from "@/grids/credit/creditTable";
 import { RiskTable } from "@/grids/risk/riskTable";
 import {
