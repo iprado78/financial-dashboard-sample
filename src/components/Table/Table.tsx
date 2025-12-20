@@ -9,7 +9,7 @@ import {
   themeQuartz,
 } from "ag-grid-community";
 import { useIsDarkMode } from "@/stores/DarkModeStore";
-
+import "./Table.css";
 interface TableProps<T extends Record<string, unknown>> {
   data: T[];
   columnDefs: ColDef[];
