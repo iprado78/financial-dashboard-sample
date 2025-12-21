@@ -1,5 +1,5 @@
-import CompanyLogo from '@/components/CompanyLogo';
-import { ICellRendererParams } from 'ag-grid-community';
+import CompanyLogo from "@/components/CompanyLogo/CompanyLogo";
+import { ICellRendererParams } from "ag-grid-community";
 
 interface CompanyLogoConfig {
   fieldName: string;

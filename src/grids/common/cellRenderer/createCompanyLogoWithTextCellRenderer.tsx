@@ -1,12 +1,14 @@
-import CompanyLogo from '@/components/CompanyLogo';
-import { ICellRendererParams } from 'ag-grid-community';
+import CompanyLogo from "@/components/CompanyLogo/CompanyLogo";
+import { ICellRendererParams } from "ag-grid-community";
 
 interface CompanyLogoWithTextConfig {
   fieldName: string;
   size?: number;
 }
 
-export function createCompanyLogoWithTextCellRenderer(config: CompanyLogoWithTextConfig) {
+export function createCompanyLogoWithTextCellRenderer(
+  config: CompanyLogoWithTextConfig
+) {
   const { fieldName, size = 24 } = config;
 
   return (params: ICellRendererParams) => {
