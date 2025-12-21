@@ -1,5 +1,7 @@
 import CandleStick from "@/components/CandleStick";
 import RouteLayout from "@/components/RouteLayout/RouteLayout";
+import { LoadingState } from "@/components/LoadingState";
+import { ErrorState } from "@/components/ErrorState";
 import { CandlestickService } from "@/services/candleStick/CandlestickService";
 import { symbolsService } from "@/services/singletonServices";
 import {
@@ -103,19 +105,11 @@ function RouteComponent() {
 
     if (error) {
       content = (
-        <div className="w-full p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
-          <p className="text-red-600 dark:text-red-400">
-            {symbol.toUpperCase()}: {error}
-          </p>
-        </div>
+        <ErrorState title={symbol.toUpperCase()} message={error} />
       );
     } else if (isLoading || !symbolData) {
       content = (
-        <div className="w-full p-8 text-center bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-          <p className="text-gray-600 dark:text-gray-400">
-            Loading {symbol.toUpperCase()}...
-          </p>
-        </div>
+        <LoadingState message={`Loading ${symbol.toUpperCase()}...`} className="w-full text-center" />
       );
     } else {
       content = <CandleStick title="" data={symbolData.data} />;

@@ -1,3 +1,5 @@
+import { ICON_SIZE_MEDIUM_CLASS } from "@/styles/designSystem";
+
 export interface SvgIconProps {
   className?: string;
   definition: string;
@@ -6,12 +8,16 @@ export interface SvgIconProps {
   fill?: string;
 }
 
+const DEFAULT_STROKE_WIDTH = 2;
+const DEFAULT_VIEW_BOX = "0 0 24 24";
+const DEFAULT_FILL = "none";
+
 export const SvgIcon = ({
-  className = "h-5 w-5",
+  className = ICON_SIZE_MEDIUM_CLASS,
   definition,
-  strokeWidth = 2,
-  viewBox = "0 0 24 24",
-  fill = "none",
+  strokeWidth = DEFAULT_STROKE_WIDTH,
+  viewBox = DEFAULT_VIEW_BOX,
+  fill = DEFAULT_FILL,
 }: SvgIconProps) => (
   <svg
     className={className}

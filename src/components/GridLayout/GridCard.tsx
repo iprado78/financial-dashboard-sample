@@ -1,5 +1,84 @@
 import { ReactNode } from "react";
 import { GripVertical, X } from "lucide-react";
+import {
+  CARD_BASE_CLASS,
+  CARD_HEADER_CLASS,
+  CARD_BODY_CLASS,
+  TEXT_HEADING_MEDIUM_CLASS,
+  BUTTON_CLOSE_CLASS,
+  FLEX_COL_CLASS,
+} from "@/styles/designSystem";
+
+const GRID_CARD_CONTAINER_CLASS = `${CARD_BASE_CLASS} ${FLEX_COL_CLASS} overflow-hidden h-full`;
+
+const GRID_CARD_HEADER_CLASS = `${CARD_HEADER_CLASS} flex items-center gap-2 flex-shrink-0`;
+
+const DRAG_HANDLE_CLASS = "flex items-center gap-2 flex-1 cursor-move";
+
+const DRAG_ICON_CLASS = "text-gray-400 dark:text-gray-500";
+
+const CLOSE_ICON_BASE_CLASS = "text-gray-500 dark:text-gray-400";
+
+const CLOSE_ICON_HOVER_CLASS = "hover:text-red-600 dark:hover:text-red-400";
+
+const CLOSE_ICON_COMBINED_CLASS = `${CLOSE_ICON_BASE_CLASS} ${CLOSE_ICON_HOVER_CLASS}`;
+
+const GRID_CARD_BODY_CLASS = `${CARD_BODY_CLASS} flex-1 overflow-hidden min-h-0`;
+
+interface DragHandleProps {
+  title?: string;
+}
+
+const DragHandle = ({ title }: DragHandleProps) => {
+  return (
+    <div className={DRAG_HANDLE_CLASS}>
+      <GripVertical size={20} className={DRAG_ICON_CLASS} />
+      {title && <h3 className={TEXT_HEADING_MEDIUM_CLASS}>{title}</h3>}
+    </div>
+  );
+};
+
+interface RemoveButtonProps {
+  onRemove: () => void;
+}
+
+const RemoveButton = ({ onRemove }: RemoveButtonProps) => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onRemove();
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      onMouseDown={handleMouseDown}
+      className={BUTTON_CLOSE_CLASS}
+      aria-label="Remove card"
+      type="button"
+    >
+      <X size={18} className={CLOSE_ICON_COMBINED_CLASS} />
+    </button>
+  );
+};
+
+interface CardHeaderProps {
+  title?: string;
+  onRemove?: () => void;
+}
+
+const CardHeader = ({ title, onRemove }: CardHeaderProps) => {
+  return (
+    <div className={GRID_CARD_HEADER_CLASS}>
+      <DragHandle title={title} />
+      {onRemove && <RemoveButton onRemove={onRemove} />}
+    </div>
+  );
+};
 
 interface GridCardProps {
   children: ReactNode;
@@ -14,36 +93,12 @@ export default function GridCard({
   className = "",
   onRemove,
 }: GridCardProps) {
+  const combinedClassName = `${GRID_CARD_CONTAINER_CLASS} ${className}`;
+
   return (
-    <div
-      className={`bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col overflow-hidden h-full ${className}`}
-    >
-      <div className="flex items-center gap-2 px-4 py-3 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
-        <div className="drag-handle flex items-center gap-2 flex-1 cursor-move">
-          <GripVertical size={20} className="text-gray-400 dark:text-gray-500" />
-          {title && (
-            <h3 className="text-lg font-semibold">{title}</h3>
-          )}
-        </div>
-        {onRemove && (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onRemove();
-            }}
-            onMouseDown={(e) => {
-              e.stopPropagation();
-            }}
-            className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors flex-shrink-0"
-            aria-label="Remove card"
-            type="button"
-          >
-            <X size={18} className="text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400" />
-          </button>
-        )}
-      </div>
-      <div className="flex-1 overflow-hidden p-4 min-h-0">{children}</div>
+    <div className={combinedClassName}>
+      <CardHeader title={title} onRemove={onRemove} />
+      <div className={GRID_CARD_BODY_CLASS}>{children}</div>
     </div>
   );
 }
