@@ -32,11 +32,25 @@ interface Actions {
   };
 }
 
+const DEFAULT_SYMBOLS = ["TSLA", "AAPL", "NVDA"];
+const DEFAULT_LAYOUT: GridItem[] = [
+  { i: "TSLA", x: 0, y: 0, w: 12, h: 6, minW: 6, minH: 4 },
+  { i: "AAPL", x: 6, y: 6, w: 6, h: 6, minW: 6, minH: 4 },
+  { i: "NVDA", x: 0, y: 6, w: 6, h: 6, minW: 6, minH: 4 },
+];
+
 const getInitialState = (): Omit<State, "loading" | "errors"> => {
   const { getNestedValue } = useLocalStorage("candleSticksSettings");
-  const selectedSymbols = getNestedValue(["selectedSymbols"]) || [];
+  const storedSymbols = getNestedValue(["selectedSymbols"]);
+  const storedLayout = getNestedValue(["layout"]);
+
+  // If nothing is stored, default to showing the 3 default symbols
+  const selectedSymbols =
+    storedSymbols && storedSymbols.length > 0 ? storedSymbols : DEFAULT_SYMBOLS;
   const symbolsData = getNestedValue(["symbolsData"]) || [];
-  const layout = getNestedValue(["layout"]) || [];
+  const layout =
+    storedLayout && storedLayout.length > 0 ? storedLayout : DEFAULT_LAYOUT;
+
   return { selectedSymbols, symbolsData, layout };
 };
 
@@ -75,12 +89,9 @@ const useCandleSticksStore = create<State & Actions>((set) => {
           setNestedValue(["selectedSymbols"], newSelectedSymbols);
 
           // Add new grid item for this symbol
-          const index = state.layout.length;
-          const col = 0; // Full width
-          const row = index * 6; // Stack vertically
           const newLayout = [
             ...state.layout,
-            { i: symbol, x: col, y: row, w: 12, h: 6, minW: 6, minH: 4 },
+            { i: symbol, x: 0, y: 0, w: 6, h: 6, minW: 6, minH: 4 },
           ];
           setNestedValue(["layout"], newLayout);
 

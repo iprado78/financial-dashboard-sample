@@ -63,14 +63,28 @@ export default function CandleStick({
 
   useEffect(() => {
     if (!height && containerRef.current) {
+      // Use requestAnimationFrame to wait for layout to settle
+      const timeoutId = setTimeout(() => {
+        if (containerRef.current) {
+          const initialHeight = containerRef.current.clientHeight;
+          if (initialHeight > 0) {
+            setContainerHeight(initialHeight);
+          }
+        }
+      }, 0);
+
       const resizeObserver = new ResizeObserver((entries) => {
         const entry = entries[0];
-        if (entry) {
+        if (entry && entry.contentRect.height > 0) {
           setContainerHeight(entry.contentRect.height);
         }
       });
       resizeObserver.observe(containerRef.current);
-      return () => resizeObserver.disconnect();
+
+      return () => {
+        clearTimeout(timeoutId);
+        resizeObserver.disconnect();
+      };
     }
   }, [height]);
 
@@ -84,9 +98,8 @@ export default function CandleStick({
   return (
     <div
       ref={containerRef}
-      style={{ width }}
+      style={height ? { width, height: `${height}px` } : { width }}
       className={height ? "" : "h-full"}
-      {...(height && { style: { width, height: `${height}px` } })}
     >
       <AgFinancialCharts options={options} ref={chartRef} />
     </div>

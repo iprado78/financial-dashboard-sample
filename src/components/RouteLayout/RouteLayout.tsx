@@ -27,12 +27,6 @@ interface RouteLayoutProps {
   emptyStateIcon: "table" | "chart";
   emptyStateTitle: string;
   emptyStateDescription: string;
-
-  // Loading items (optional)
-  loadingItems?: Record<string, boolean>;
-  errorItems?: Record<string, string>;
-  renderLoadingItem?: (item: string) => ReactNode;
-  renderErrorItem?: (item: string, error: string) => ReactNode;
 }
 
 export default function RouteLayout({
@@ -48,13 +42,8 @@ export default function RouteLayout({
   emptyStateIcon,
   emptyStateTitle,
   emptyStateDescription,
-  loadingItems = {},
-  errorItems = {},
-  renderLoadingItem,
-  renderErrorItem,
 }: RouteLayoutProps) {
-  const hasLoadingItems = Object.keys(loadingItems).length > 0;
-  const showEmptyState = selectedItems.length === 0 && !hasLoadingItems;
+  const showEmptyState = selectedItems.length == 0;
 
   return (
     <>
@@ -77,28 +66,6 @@ export default function RouteLayout({
                   </div>
                 ))}
               </GridLayout>
-            )}
-
-            {/* Loading and error states */}
-            {(Object.keys(loadingItems).length > 0 ||
-              Object.keys(errorItems).length > 0) && (
-              <div className="space-y-4 mt-6">
-                {renderLoadingItem &&
-                  Object.entries(loadingItems).map(
-                    ([item, isLoading]) =>
-                      isLoading && (
-                        <div key={item}>{renderLoadingItem(item)}</div>
-                      )
-                  )}
-
-                {renderErrorItem &&
-                  Object.entries(errorItems).map(
-                    ([item, error]) =>
-                      error && (
-                        <div key={item}>{renderErrorItem(item, error)}</div>
-                      )
-                  )}
-              </div>
             )}
           </>
         )}
