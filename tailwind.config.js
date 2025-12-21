@@ -16,6 +16,9 @@ module.exports = {
     "bg-warning",
     "bg-info",
     "bg-neutral",
+    "bg-primary",
+    "bg-secondary",
+    "bg-brand",
     // Light/dark variants for colored pills (light mode)
     "bg-success-light",
     "bg-success-dark",
@@ -25,6 +28,10 @@ module.exports = {
     "bg-warning-dark",
     "bg-info-light",
     "bg-info-dark",
+    "bg-primary-light",
+    "bg-primary-dark",
+    "bg-secondary-light",
+    "bg-secondary-dark",
     // Light/dark variants for colored pills (dark mode)
     "dark:bg-success-light",
     "dark:bg-success-dark",
@@ -34,6 +41,8 @@ module.exports = {
     "dark:bg-warning-dark",
     "dark:bg-info-light",
     "dark:bg-info-dark",
+    "dark:bg-primary-light",
+    "dark:bg-primary-dark",
     // Text colors for colored pills (light mode)
     "text-success-dark",
     "text-success-light",
@@ -43,6 +52,9 @@ module.exports = {
     "text-warning-light",
     "text-info-dark",
     "text-info-light",
+    "text-primary-dark",
+    "text-primary-light",
+    "text-brand",
     // Text colors for colored pills (dark mode)
     "dark:text-success-dark",
     "dark:text-success-light",
@@ -52,6 +64,8 @@ module.exports = {
     "dark:text-warning-light",
     "dark:text-info-dark",
     "dark:text-info-light",
+    "dark:text-primary-dark",
+    "dark:text-primary-light",
   ],
   theme: {
     extend: {
@@ -59,6 +73,26 @@ module.exports = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        // Brand colors
+        brand: {
+          DEFAULT: "#00458a",
+          light: "#0057ab",
+          dark: "#003366",
+        },
+        // Primary (replaces scattered blue-600 usage)
+        primary: {
+          DEFAULT: "#2563eb", // blue-600
+          light: "#dbeafe", // blue-100
+          dark: "#1e40af", // blue-800
+          hover: "#1d4ed8", // blue-700
+        },
+        // Secondary (replaces scattered slate usage)
+        secondary: {
+          DEFAULT: "#64748b", // slate-500
+          light: "#f1f5f9", // slate-100
+          dark: "#334155", // slate-700
+        },
+        // Semantic status colors
         success: {
           DEFAULT: "#10b981", // green-500
           light: "#d1fae5", // green-100
@@ -78,6 +112,12 @@ module.exports = {
           DEFAULT: "#3b82f6", // blue-500
           light: "#dbeafe", // blue-100
           dark: "#1e40af", // blue-800
+        },
+        // Neutral (for consistency)
+        neutral: {
+          DEFAULT: "#9ca3af", // gray-400
+          light: "#f3f4f6", // gray-100
+          dark: "#374151", // gray-700
         },
       },
       borderRadius: {

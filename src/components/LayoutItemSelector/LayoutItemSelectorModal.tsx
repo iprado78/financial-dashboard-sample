@@ -6,6 +6,7 @@ import {
   ComboboxOptions,
 } from "@headlessui/react";
 import { useState } from "react";
+import { INPUT_COMBOBOX_CLASS, TEXT_MUTED_CLASS } from "@/styles/designSystem";
 
 interface LayoutItemSelectorModalProps {
   isOpen: boolean;
@@ -16,6 +17,51 @@ interface LayoutItemSelectorModalProps {
   onItemSelect: (item: string) => void;
   formatLabel: (item: string) => string;
 }
+
+const CONTAINER_CLASS = "relative min-h-[300px]";
+
+const OPTIONS_CONTAINER_CLASS =
+  "absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-slate-100 dark:bg-slate-700 py-1 shadow-lg border border-gray-200 dark:border-gray-700 focus:outline-none empty:invisible";
+
+const OPTION_CLASS =
+  "relative cursor-pointer select-none py-2 px-4 data-[focus]:bg-primary-light data-[focus]:dark:bg-primary-dark data-[focus]:text-primary-dark data-[focus]:dark:text-primary-light text-gray-900 dark:text-gray-100 text-sm";
+
+const EMPTY_STATE_CLASS = `py-2 px-4 ${TEXT_MUTED_CLASS} text-sm`;
+
+interface EmptyStateProps {
+  hasQuery: boolean;
+}
+
+const EmptyState = ({ hasQuery }: EmptyStateProps) => {
+  const message = hasQuery ? "No results found" : "No items available";
+  return <div className={EMPTY_STATE_CLASS}>{message}</div>;
+};
+
+interface OptionsListProps {
+  filteredOptions: string[];
+  formatLabel: (item: string) => string;
+  query: string;
+}
+
+const OptionsList = ({
+  filteredOptions,
+  formatLabel,
+  query,
+}: OptionsListProps) => {
+  return (
+    <ComboboxOptions static className={OPTIONS_CONTAINER_CLASS}>
+      {filteredOptions.length > 0 ? (
+        filteredOptions.map((item) => (
+          <ComboboxOption key={item} value={item} className={OPTION_CLASS}>
+            {formatLabel(item)}
+          </ComboboxOption>
+        ))
+      ) : (
+        <EmptyState hasQuery={query !== ""} />
+      )}
+    </ComboboxOptions>
+  );
+};
 
 export function LayoutItemSelectorModal({
   isOpen,
@@ -46,35 +92,20 @@ export function LayoutItemSelectorModal({
   return (
     <ModalWrapper isOpen={isOpen} onClose={onClose} title={`Add ${title}`}>
       <Combobox value={null} onChange={handleSelect} immediate>
-        <div className="relative min-h-[300px]">
+        <div className={CONTAINER_CLASS}>
           <ComboboxInput
-            className="relative w-full cursor-text rounded-lg bg-white dark:bg-gray-700 py-2 pl-3 pr-10 text-left shadow-sm border border-gray-300 dark:border-gray-600 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+            className={INPUT_COMBOBOX_CLASS}
             placeholder="Type to filter..."
             onChange={(event) => setQuery(event.target.value)}
             value={query}
             displayValue={() => query}
             autoFocus
           />
-          <ComboboxOptions
-            static
-            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-slate-100 dark:bg-slate-700 py-1 shadow-lg border border-gray-200 dark:border-gray-700 focus:outline-none empty:invisible"
-          >
-            {filteredOptions.length > 0 ? (
-              filteredOptions.map((item) => (
-                <ComboboxOption
-                  key={item}
-                  value={item}
-                  className="relative cursor-pointer select-none py-2 px-4 data-[focus]:bg-blue-100 data-[focus]:dark:bg-blue-900 data-[focus]:text-blue-900 data-[focus]:dark:text-blue-100 text-gray-900 dark:text-gray-100 text-sm"
-                >
-                  {formatLabel(item)}
-                </ComboboxOption>
-              ))
-            ) : (
-              <div className="py-2 px-4 text-gray-500 dark:text-gray-400 text-sm">
-                {query === "" ? "No items available" : "No results found"}
-              </div>
-            )}
-          </ComboboxOptions>
+          <OptionsList
+            filteredOptions={filteredOptions}
+            formatLabel={formatLabel}
+            query={query}
+          />
         </div>
       </Combobox>
     </ModalWrapper>

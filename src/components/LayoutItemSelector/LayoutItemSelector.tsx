@@ -2,6 +2,14 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { Pill } from "@/components/Pill";
 import { LayoutItemSelectorModal } from "@/components/LayoutItemSelector/LayoutItemSelectorModal";
+import {
+  CARD_HEADER_CLASS,
+  TEXT_HEADING_MEDIUM_CLASS,
+  BORDER_BOTTOM_CLASS,
+  FLEX_BETWEEN_CLASS,
+  PADDING_MEDIUM_CLASS,
+  ICON_SIZE_SMALL_CLASS,
+} from "@/styles/designSystem";
 
 interface LayoutItemSelectorProps {
   title: string;
@@ -12,6 +20,117 @@ interface LayoutItemSelectorProps {
   formatLabel?: (item: string) => string;
   highlightButton?: boolean;
 }
+
+const HEADER_CLASS = `${CARD_HEADER_CLASS} ${BORDER_BOTTOM_CLASS} ${FLEX_BETWEEN_CLASS}`;
+
+const PILLS_CONTAINER_CLASS = `${PADDING_MEDIUM_CLASS} space-y-4`;
+
+const PILLS_WRAPPER_CLASS = "flex flex-wrap gap-2";
+
+const BUTTON_WRAPPER_CLASS = "relative";
+
+const PING_ANIMATION_CLASS =
+  "absolute inset-0 rounded-full bg-primary animate-ping opacity-75";
+
+const ADD_BUTTON_ENABLED_CLASS =
+  "relative w-6 h-6 flex items-center justify-center rounded-full transition-colors bg-primary text-white hover:bg-primary-hover dark:bg-primary dark:hover:bg-primary-hover";
+
+const ADD_BUTTON_DISABLED_CLASS =
+  "relative w-6 h-6 flex items-center justify-center rounded-full transition-colors bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed";
+
+const ADD_BUTTON_PULSE_CLASS = "animate-pulse";
+
+interface AddButtonProps {
+  onClick: () => void;
+  disabled: boolean;
+  highlighted: boolean;
+  title: string;
+}
+
+const AddButton = ({
+  onClick,
+  disabled,
+  highlighted,
+  title,
+}: AddButtonProps) => {
+  const buttonClass = disabled
+    ? ADD_BUTTON_DISABLED_CLASS
+    : `${ADD_BUTTON_ENABLED_CLASS} ${highlighted ? ADD_BUTTON_PULSE_CLASS : ""}`;
+
+  return (
+    <div className={BUTTON_WRAPPER_CLASS}>
+      {highlighted && <span className={PING_ANIMATION_CLASS}></span>}
+      <button
+        onClick={onClick}
+        disabled={disabled}
+        className={buttonClass}
+        title={title}
+        type="button"
+      >
+        <PlusIcon className={ICON_SIZE_SMALL_CLASS} />
+      </button>
+    </div>
+  );
+};
+
+interface HeaderProps {
+  title: string;
+  onAddClick: () => void;
+  hasAvailableItems: boolean;
+  highlightButton: boolean;
+}
+
+const Header = ({
+  title,
+  onAddClick,
+  hasAvailableItems,
+  highlightButton,
+}: HeaderProps) => {
+  const addButtonTitle = hasAvailableItems
+    ? `Add ${title.toLowerCase()}`
+    : `No ${title.toLowerCase()} available to add`;
+
+  return (
+    <div className={HEADER_CLASS}>
+      <h3 className={TEXT_HEADING_MEDIUM_CLASS}>{title}</h3>
+      <AddButton
+        onClick={onAddClick}
+        disabled={!hasAvailableItems}
+        highlighted={highlightButton}
+        title={addButtonTitle}
+      />
+    </div>
+  );
+};
+
+interface SelectedItemsProps {
+  selectedItems: string[];
+  formatLabel: (item: string) => string;
+  onItemRemove: (item: string) => void;
+}
+
+const SelectedItems = ({
+  selectedItems,
+  formatLabel,
+  onItemRemove,
+}: SelectedItemsProps) => {
+  if (selectedItems.length === 0) return null;
+
+  return (
+    <div className={PILLS_CONTAINER_CLASS}>
+      <div className={PILLS_WRAPPER_CLASS}>
+        {selectedItems.map((item) => (
+          <Pill
+            key={item}
+            label={formatLabel(item)}
+            color="primary"
+            onRemove={() => onItemRemove(item)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default function LayoutItemSelector({
   title,
@@ -30,47 +149,17 @@ export default function LayoutItemSelector({
 
   return (
     <div>
-      <div className="px-4 py-3 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-        <h3 className="text-lg font-semibold">{title}</h3>
-        <div className="relative">
-          {highlightButton && (
-            <span className="absolute inset-0 rounded-full bg-blue-400 animate-ping opacity-75"></span>
-          )}
-          <button
-            onClick={() => setIsOpen(true)}
-            disabled={!hasAvailableItems}
-            className={`relative w-6 h-6 flex items-center justify-center rounded-full transition-colors ${
-              hasAvailableItems
-                ? `bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 ${
-                    highlightButton ? "animate-pulse" : ""
-                  }`
-                : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-            }`}
-            title={
-              hasAvailableItems
-                ? `Add ${title.toLowerCase()}`
-                : `No ${title.toLowerCase()} available to add`
-            }
-          >
-            <PlusIcon className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-      <div className="p-4 space-y-4">
-        {selectedItems.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {selectedItems.map((item) => (
-              <Pill
-                key={item}
-                label={formatLabel(item)}
-                color="blue"
-                onRemove={() => onItemRemove(item)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-
+      <Header
+        title={title}
+        onAddClick={() => setIsOpen(true)}
+        hasAvailableItems={hasAvailableItems}
+        highlightButton={highlightButton}
+      />
+      <SelectedItems
+        selectedItems={selectedItems}
+        formatLabel={formatLabel}
+        onItemRemove={onItemRemove}
+      />
       <LayoutItemSelectorModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

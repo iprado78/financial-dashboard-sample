@@ -4,6 +4,13 @@ import {
   TABLE_ICON_DEFINITION,
   PLUS_ICON_DEFINITION,
 } from "@/components/SvgIcon/iconDefinitions";
+import {
+  FLEX_CENTER_CLASS,
+  TEXT_HEADING_LARGE_CLASS,
+  TEXT_BODY_SECONDARY_CLASS,
+  TEXT_MUTED_CLASS,
+  ICON_SIZE_SMALL_CLASS,
+} from "@/styles/designSystem";
 
 interface EmptyStateProps {
   icon: "chart" | "table";
@@ -11,6 +18,59 @@ interface EmptyStateProps {
   description: string;
   showAddButton?: boolean;
 }
+
+const CONTAINER_CLASS = `${FLEX_CENTER_CLASS} min-h-[400px]`;
+
+const CONTENT_CLASS = "text-center max-w-md";
+
+const ICON_CONTAINER_CLASS = "mb-4";
+
+const ICON_CLASS = "mx-auto h-24 w-24 text-gray-400 dark:text-gray-600";
+
+const TITLE_CLASS = `${TEXT_HEADING_LARGE_CLASS} mb-2`;
+
+const DESCRIPTION_CLASS = `${TEXT_BODY_SECONDARY_CLASS} mb-4`;
+
+const CTA_CONTAINER_CLASS = `${FLEX_CENTER_CLASS} gap-2 text-sm ${TEXT_MUTED_CLASS}`;
+
+const PING_ANIMATION_CLASS =
+  "absolute inset-0 rounded-full bg-primary animate-ping opacity-75";
+
+const PULSE_BUTTON_CLASS =
+  "relative w-6 h-6 flex items-center justify-center rounded-full bg-primary text-white animate-pulse";
+
+const BUTTON_ICON_WRAPPER_CLASS = "relative inline-flex items-center";
+
+interface AnimatedAddButtonProps {
+  iconDefinition: string;
+}
+
+const AnimatedAddButton = ({ iconDefinition }: AnimatedAddButtonProps) => {
+  return (
+    <div className={BUTTON_ICON_WRAPPER_CLASS}>
+      <span className={PING_ANIMATION_CLASS}></span>
+      <div className={PULSE_BUTTON_CLASS}>
+        <SvgIcon className={ICON_SIZE_SMALL_CLASS} definition={iconDefinition} />
+      </div>
+    </div>
+  );
+};
+
+interface CTASectionProps {
+  showAddButton: boolean;
+}
+
+const CTASection = ({ showAddButton }: CTASectionProps) => {
+  if (!showAddButton) return null;
+
+  return (
+    <div className={CTA_CONTAINER_CLASS}>
+      <span>Click the</span>
+      <AnimatedAddButton iconDefinition={PLUS_ICON_DEFINITION} />
+      <span>button in the right panel to begin</span>
+    </div>
+  );
+};
 
 export default function EmptyState({
   icon,
@@ -22,34 +82,18 @@ export default function EmptyState({
     icon === "chart" ? CHART_ICON_DEFINITION : TABLE_ICON_DEFINITION;
 
   return (
-    <div className="flex items-center justify-center min-h-[400px]">
-      <div className="text-center max-w-md">
-        <div className="mb-4">
+    <div className={CONTAINER_CLASS}>
+      <div className={CONTENT_CLASS}>
+        <div className={ICON_CONTAINER_CLASS}>
           <SvgIcon
-            className="mx-auto h-24 w-24 text-gray-400 dark:text-gray-600"
+            className={ICON_CLASS}
             definition={iconDefinition}
             strokeWidth={1.5}
           />
         </div>
-        <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
-          {title}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">{description}</p>
-        {showAddButton && (
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-500">
-            <span>Click the</span>
-            <div className="relative inline-flex items-center">
-              <span className="absolute inset-0 rounded-full bg-blue-400 animate-ping opacity-75"></span>
-              <div className="relative w-6 h-6 flex items-center justify-center rounded-full bg-blue-600 text-white animate-pulse">
-                <SvgIcon
-                  className="h-4 w-4"
-                  definition={PLUS_ICON_DEFINITION}
-                />
-              </div>
-            </div>
-            <span>button in the right panel to begin</span>
-          </div>
-        )}
+        <h3 className={TITLE_CLASS}>{title}</h3>
+        <p className={DESCRIPTION_CLASS}>{description}</p>
+        <CTASection showAddButton={showAddButton} />
       </div>
     </div>
   );

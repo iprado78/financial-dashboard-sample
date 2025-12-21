@@ -17,7 +17,7 @@ const TOGGLE_CONTAINER_CLASS =
 const ICON_BUTTON_BASE_CLASS =
   "cursor-pointer transition-colors focus:outline-none";
 
-const ICON_ACTIVE_CLASS = "text-blue-500";
+const ICON_ACTIVE_CLASS = "text-primary";
 
 const ICON_INACTIVE_CLASS =
   "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200";

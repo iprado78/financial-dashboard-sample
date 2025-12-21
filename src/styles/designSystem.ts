@@ -3,6 +3,15 @@
  *
  * Centralized Tailwind class definitions for consistent styling across the application.
  * Following the pattern established in Nav.tsx and ClaudeChat components.
+ *
+ * Uses semantic color names from tailwind.config.js:
+ * - primary: Main brand color (blue)
+ * - secondary: Secondary color (slate/gray)
+ * - brand: Company brand color
+ * - success: Success/positive actions (green)
+ * - error: Error/destructive actions (red)
+ * - warning: Warning/caution (amber)
+ * - info: Informational (blue)
  */
 
 // ============================================================================
@@ -10,34 +19,37 @@
 // ============================================================================
 
 export const BUTTON_PRIMARY_CLASS =
-  "bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors";
+  "bg-primary hover:bg-primary-hover text-white rounded-lg px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors";
 
 export const BUTTON_SECONDARY_CLASS =
-  "bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-900 dark:text-slate-100 rounded-lg px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors";
+  "bg-secondary-light hover:bg-secondary dark:bg-secondary-dark dark:hover:bg-secondary text-slate-900 dark:text-slate-100 rounded-lg px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors";
 
 export const BUTTON_DANGER_CLASS =
-  "bg-red-600 hover:bg-red-700 text-white rounded-lg px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors";
+  "bg-error hover:bg-error-dark text-white rounded-lg px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors";
+
+export const BUTTON_SUCCESS_CLASS =
+  "bg-success hover:bg-success-dark text-white rounded-lg px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors";
 
 export const BUTTON_GHOST_CLASS =
   "bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-4 py-2 transition-colors";
 
 // Icon Buttons
 export const ICON_BUTTON_NEUTRAL_CLASS =
-  "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors";
+  "text-secondary hover:text-secondary-dark dark:text-slate-400 dark:hover:text-slate-200 transition-colors";
 
 export const ICON_BUTTON_DANGER_CLASS =
-  "text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 transition-colors";
+  "text-secondary hover:text-error dark:text-slate-400 dark:hover:text-error transition-colors";
 
 export const ICON_BUTTON_PRIMARY_CLASS =
-  "text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors";
+  "text-primary hover:text-primary-hover dark:text-primary-light dark:hover:text-primary transition-colors";
 
 // Small action buttons (like close/remove buttons)
 export const BUTTON_CLOSE_CLASS =
-  "p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors flex-shrink-0";
+  "p-1 hover:bg-neutral-light dark:hover:bg-neutral-dark rounded transition-colors flex-shrink-0";
 
 // Floating action button
 export const BUTTON_FAB_CLASS =
-  "bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-all";
+  "bg-primary hover:bg-primary-hover text-white rounded-full p-4 shadow-lg transition-all";
 
 // ============================================================================
 // CARDS & CONTAINERS
@@ -68,17 +80,17 @@ export const CONTAINER_SECTION_CLASS = "space-y-4";
 // ============================================================================
 
 export const INPUT_TEXT_BASE_CLASS =
-  "px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100";
+  "px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100";
 
 export const INPUT_COMBOBOX_CLASS =
-  "rounded-lg bg-white dark:bg-gray-700 py-2 pl-3 pr-10 border border-gray-300 dark:border-gray-600 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500";
+  "rounded-lg bg-white dark:bg-gray-700 py-2 pl-3 pr-10 border border-gray-300 dark:border-gray-600 focus:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary";
 
 export const INPUT_TEXTAREA_CLASS =
-  "px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 resize-none";
+  "px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 resize-none";
 
 export const INPUT_DISABLED_CLASS = "opacity-50 cursor-not-allowed";
 
-export const INPUT_ERROR_CLASS = "border-red-500 focus:ring-red-500";
+export const INPUT_ERROR_CLASS = "border-error focus:ring-error";
 
 // ============================================================================
 // TYPOGRAPHY
@@ -100,9 +112,15 @@ export const TEXT_BODY_SECONDARY_CLASS =
 
 export const TEXT_MUTED_CLASS = "text-gray-500 dark:text-gray-500";
 
-export const TEXT_ERROR_CLASS = "text-red-600 dark:text-red-400";
+export const TEXT_ERROR_CLASS = "text-error dark:text-error-light";
 
-export const TEXT_SUCCESS_CLASS = "text-green-600 dark:text-green-400";
+export const TEXT_SUCCESS_CLASS = "text-success dark:text-success-light";
+
+export const TEXT_WARNING_CLASS = "text-warning dark:text-warning-light";
+
+export const TEXT_INFO_CLASS = "text-info dark:text-info-light";
+
+export const TEXT_PRIMARY_CLASS = "text-primary dark:text-primary-light";
 
 // ============================================================================
 // LAYOUT & SPACING
@@ -173,10 +191,13 @@ export const ICON_SIZE_LARGE_CLASS = "h-6 w-6";
 export const ICON_SIZE_XLARGE_CLASS = "h-8 w-8";
 
 // Icon colors
-export const ICON_PRIMARY_CLASS = "text-blue-600 dark:text-blue-400";
-export const ICON_SECONDARY_CLASS = "text-gray-600 dark:text-gray-400";
-export const ICON_DANGER_CLASS = "text-red-600 dark:text-red-400";
-export const ICON_SUCCESS_CLASS = "text-green-600 dark:text-green-400";
+export const ICON_PRIMARY_CLASS = "text-primary dark:text-primary-light";
+export const ICON_SECONDARY_CLASS = "text-secondary dark:text-gray-400";
+export const ICON_DANGER_CLASS = "text-error dark:text-error-light";
+export const ICON_SUCCESS_CLASS = "text-success dark:text-success-light";
+export const ICON_WARNING_CLASS = "text-warning dark:text-warning-light";
+export const ICON_INFO_CLASS = "text-info dark:text-info-light";
+export const ICON_BRAND_CLASS = "text-brand dark:text-brand-light";
 
 // ============================================================================
 // BADGES & PILLS
