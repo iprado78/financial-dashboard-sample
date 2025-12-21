@@ -13,7 +13,7 @@ const GRID_CARD_CONTAINER_CLASS = `${CARD_BASE_CLASS} ${FLEX_COL_CLASS} overflow
 
 const GRID_CARD_HEADER_CLASS = `${CARD_HEADER_CLASS} flex items-center gap-2 flex-shrink-0`;
 
-const DRAG_HANDLE_CLASS = "flex items-center gap-2 flex-1 cursor-move";
+const DRAG_HANDLE_CLASS = "drag-handle flex items-center gap-2 flex-1 cursor-move";
 
 const DRAG_ICON_CLASS = "text-gray-400 dark:text-gray-500";
 
