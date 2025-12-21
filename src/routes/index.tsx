@@ -25,7 +25,7 @@ function RouteComponent() {
     <RouteLayoutWrapper>
       <GridLayout layout={layout} onLayoutChange={handleLayoutChange}>
         <div key="trades">
-          <GridCard title="Trades">
+          <GridCard title="Trade Table">
             <TradesTable />
           </GridCard>
         </div>

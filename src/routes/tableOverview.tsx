@@ -45,7 +45,7 @@ function TableOverviewRoute() {
 
   const itemsData = selectedTables.map((tableName) => ({
     id: tableName,
-    title: tableName.charAt(0).toUpperCase() + tableName.slice(1),
+    title: tableName.charAt(0).toUpperCase() + tableName.slice(1) + " Table",
     content: TABLE_COMPONENTS[tableName],
   }));
 
@@ -63,7 +63,7 @@ function TableOverviewRoute() {
       itemSelectorTitle="Tables"
       emptyStateIcon="table"
       emptyStateTitle="No Tables Selected"
-      emptyStateDescription="Get started by adding tables to view your data."
+      emptyStateDescription="Get started by adding tables to your view."
     />
   );
 }
