@@ -1,7 +1,7 @@
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { LayoutItemSelectorModal } from "./LayoutItemSelectorModal";
-import { Pill } from "../Pill";
+import { Pill } from "@/components/Pill";
+import { LayoutItemSelectorModal } from "@/components/LayoutItemSelector/LayoutItemSelectorModal";
 
 interface LayoutItemSelectorProps {
   title: string;
@@ -24,6 +24,10 @@ export default function LayoutItemSelector({
 }: LayoutItemSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const hasAvailableItems = availableItems.some(
+    (item) => !selectedItems.includes(item)
+  );
+
   return (
     <div>
       <div className="px-4 py-3 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
@@ -34,10 +38,19 @@ export default function LayoutItemSelector({
           )}
           <button
             onClick={() => setIsOpen(true)}
-            className={`relative w-6 h-6 flex items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors ${
-              highlightButton ? "animate-pulse" : ""
+            disabled={!hasAvailableItems}
+            className={`relative w-6 h-6 flex items-center justify-center rounded-full transition-colors ${
+              hasAvailableItems
+                ? `bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 ${
+                    highlightButton ? "animate-pulse" : ""
+                  }`
+                : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
             }`}
-            title={`Add ${title.toLowerCase()}`}
+            title={
+              hasAvailableItems
+                ? `Add ${title.toLowerCase()}`
+                : `No ${title.toLowerCase()} available to add`
+            }
           >
             <PlusIcon className="h-4 w-4" />
           </button>

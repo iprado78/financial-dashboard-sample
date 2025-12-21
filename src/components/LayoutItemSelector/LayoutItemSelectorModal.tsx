@@ -1,6 +1,11 @@
-import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from "@headlessui/react";
+import { ModalWrapper } from "@/components/ModalWrapper";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxOptions,
+} from "@headlessui/react";
 import { useState } from "react";
-import { ModalWrapper } from "../ModalWrapper";
 
 interface LayoutItemSelectorModalProps {
   isOpen: boolean;
@@ -41,15 +46,19 @@ export function LayoutItemSelectorModal({
   return (
     <ModalWrapper isOpen={isOpen} onClose={onClose} title={`Add ${title}`}>
       <Combobox value={null} onChange={handleSelect} immediate>
-        <div className="relative">
+        <div className="relative min-h-[300px]">
           <ComboboxInput
-            className="relative w-full cursor-text rounded-lg bg-white dark:bg-gray-700 py-2 pl-3 pr-10 text-left shadow-md border border-gray-300 dark:border-gray-600 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
-            placeholder="Type to search..."
+            className="relative w-full cursor-text rounded-lg bg-white dark:bg-gray-700 py-2 pl-3 pr-10 text-left shadow-sm border border-gray-300 dark:border-gray-600 focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+            placeholder="Type to filter..."
             onChange={(event) => setQuery(event.target.value)}
             value={query}
             displayValue={() => query}
+            autoFocus
           />
-          <ComboboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-gray-700 py-1 shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none empty:invisible">
+          <ComboboxOptions
+            static
+            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-slate-100 dark:bg-slate-700 py-1 shadow-lg border border-gray-200 dark:border-gray-700 focus:outline-none empty:invisible"
+          >
             {filteredOptions.length > 0 ? (
               filteredOptions.map((item) => (
                 <ComboboxOption
