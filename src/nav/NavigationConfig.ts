@@ -1,9 +1,4 @@
-export const NAVIGATION_CONFIG = [
-  {
-    id: "714ef7ad-d20c-489d-a63d-b689d9491769",
-    name: "Home",
-    route: "",
-  },
+export const PAGE_ROUTES = [
   {
     id: "c3d4e5f6-7a8b-9c0d-1e2f-3g4h5i6j7k8l",
     name: "Tables",
@@ -14,4 +9,15 @@ export const NAVIGATION_CONFIG = [
     name: "Charts",
     route: "/candleSticks",
   },
-];
+] as const;
+
+export type PageRoute = typeof PAGE_ROUTES[number];
+
+export function findPageByPath(path: string): PageRoute | null {
+  return PAGE_ROUTES.find((page) => path.startsWith(page.route)) || null;
+}
+
+export function isSubroute(path: string): boolean {
+  const segments = path.split("/").filter(Boolean);
+  return segments.length >= 2;
+}
