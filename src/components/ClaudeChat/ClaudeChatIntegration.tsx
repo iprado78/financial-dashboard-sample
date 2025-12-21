@@ -6,7 +6,7 @@ import {
 import { useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 
-import ChatWidget, { Message } from "./ChatWidget";
+import ChatWidget, { Message } from "./ClaudeWidget/ChatWidget";
 
 let claudeService: ClaudeService | null = null;
 
