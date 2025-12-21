@@ -16,10 +16,23 @@ interface Actions {
   };
 }
 
+const DEFAULT_TABLES = ["credit", "holdings", "risk", "transactions"];
+const DEFAULT_LAYOUT: GridItem[] = [
+  { i: "credit", x: 0, y: 0, w: 6, h: 6, minW: 6, minH: 6 },
+  { i: "holdings", x: 6, y: 0, w: 6, h: 6, minW: 6, minH: 6 },
+  { i: "risk", x: 0, y: 6, w: 6, h: 6, minW: 6, minH: 6 },
+  { i: "transactions", x: 6, y: 6, w: 6, h: 6, minW: 6, minH: 6 },
+];
+
 const getInitialState = (): State => {
   const { getNestedValue } = useLocalStorage("tableOverviewSettings");
-  const selectedTables = getNestedValue(["selectedTables"]) || [];
-  const layout = getNestedValue(["layout"]) || [];
+  const storedTables = getNestedValue(["selectedTables"]);
+  const storedLayout = getNestedValue(["layout"]);
+
+  // If nothing is stored, default to showing all 4 tables
+  const selectedTables = storedTables && storedTables.length > 0 ? storedTables : DEFAULT_TABLES;
+  const layout = storedLayout && storedLayout.length > 0 ? storedLayout : DEFAULT_LAYOUT;
+
   return { selectedTables, layout };
 };
 

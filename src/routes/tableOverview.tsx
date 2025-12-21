@@ -1,6 +1,5 @@
 import RouteLayout from "@/components/RouteLayout/RouteLayout";
 import { HoldingsTable } from "@/grids/holdings/holdingsTable";
-import { TransactionsTable } from "@/grids/transactions/TransactionsTable";
 import { CreditTable } from "@/grids/credit/creditTable";
 import { RiskTable } from "@/grids/risk/riskTable";
 import {
@@ -12,6 +11,7 @@ import {
 } from "@/stores/TableOverviewStore";
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "react-grid-layout";
+import { TransactionsTable } from "@/grids/transactions/transactionsTable";
 
 export const Route = createFileRoute("/tableOverview")({
   component: TableOverviewRoute,
@@ -63,7 +63,7 @@ function TableOverviewRoute() {
       itemSelectorTitle="Tables"
       emptyStateIcon="table"
       emptyStateTitle="No Tables Selected"
-      emptyStateDescription="Get started by adding tables to view your financial data."
+      emptyStateDescription="Get started by adding tables to view your data."
     />
   );
 }
