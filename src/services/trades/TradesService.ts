@@ -1,5 +1,6 @@
 import { Listener, ObservableValue } from "@/utils/ObservableValue";
 import { generateTrades } from "@/data/generateTrades";
+import { Currency } from "@/services/currencies/CurrenciesService";
 
 export const TRADE_STATUSES = [
   "PENDING",
@@ -15,10 +16,6 @@ export const TRADE_SIDES = ["BUY", "SELL"] as const;
 
 export type TradeSide = (typeof TRADE_SIDES)[number];
 
-export const TRADE_CURRENCIES = ["USD", "EUR", "GBP", "JPY"] as const;
-
-export type TradeCurrency = (typeof TRADE_CURRENCIES)[number];
-
 export interface ITrade extends Record<string, unknown> {
   id: string;
   status: TradeStatus;
@@ -33,7 +30,7 @@ export interface ITrade extends Record<string, unknown> {
   trader: string;
   orderTime: string;
   lastUpdate: string;
-  currency: TradeCurrency;
+  currency: Currency;
 }
 
 export class TradesService {

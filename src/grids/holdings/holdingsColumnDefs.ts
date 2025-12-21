@@ -1,10 +1,15 @@
 import { ColDef } from "ag-grid-community";
-import { quantityFormatter } from "@/grids/common/valueFormatter/numberFormatter";
+import { number0Formatter } from "@/grids/common/valueFormatter/numberFormatter";
 import { createIndicatorColDef } from "../common/colDef/createIndicatorColDef";
 import { createBinaryCellClassRules } from "@/grids/common/cellClass/createBinaryCellClassRules";
 import { IHolding } from "@/services/holdings/HoldingsService";
 import { getPnlColorClass } from "@/services/holdings/holdingsColors";
 import { createCompanyLogoWithTextCellRenderer } from "@/grids/common/cellRenderer/createCompanyLogoWithTextCellRenderer";
+import {
+  usd0Formatter,
+  usd2Formatter,
+} from "@/grids/common/valueFormatter/priceFormatter";
+import { normalizedPercent2Formatter } from "@/grids/common/valueFormatter/percentFormatter";
 
 export const HOLDINGS_COLUMN_DEFS: ColDef<IHolding>[] = [
   createIndicatorColDef<IHolding, "unrealizedGainLoss">({
@@ -21,27 +26,29 @@ export const HOLDINGS_COLUMN_DEFS: ColDef<IHolding>[] = [
       fieldName: "symbol",
     }),
   },
+  { field: "sector", headerName: "Sector", minWidth: 150 },
   {
     field: "quantity",
     headerName: "Quantity",
     type: "numericColumn",
-    valueFormatter: quantityFormatter,
+    valueFormatter: number0Formatter,
+    sort: "desc",
   },
   {
     field: "marketValue",
     headerName: "Market Value",
     type: "numericColumn",
-    valueFormatter: (params) => `$${params.value?.toLocaleString()}`,
+    valueFormatter: usd0Formatter,
   },
   {
     field: "costBasis",
     headerName: "Cost Basis",
     type: "numericColumn",
-    valueFormatter: (params) => `$${params.value?.toLocaleString()}`,
+    valueFormatter: usd0Formatter,
   },
   {
     field: "unrealizedGainLoss",
-    headerName: "Unrealized P&L",
+    headerName: "Unrealized P&L (USD)",
     type: "numericColumn",
     cellClassRules: createBinaryCellClassRules<IHolding>({
       isSuccess: (params) => {
@@ -51,12 +58,12 @@ export const HOLDINGS_COLUMN_DEFS: ColDef<IHolding>[] = [
         return params.data?.unrealizedGainLoss > 0;
       },
     }),
+    valueFormatter: usd2Formatter,
   },
   {
     field: "weight",
     headerName: "Weight",
     type: "numericColumn",
-    valueFormatter: (params) => `${(params.value * 100)?.toFixed(2)}%`,
+    valueFormatter: normalizedPercent2Formatter,
   },
-  { field: "sector", headerName: "Sector", minWidth: 150 },
 ];

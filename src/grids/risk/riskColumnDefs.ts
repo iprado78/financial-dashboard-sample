@@ -3,6 +3,9 @@ import { IRisk } from "@/services/risk/RiskService";
 import { getRiskTypeColorClass } from "@/services/risk/riskColors";
 import { createColoredPillCellRenderer } from "@/grids/common/cellRenderer/createColoredPillCellRenderer";
 import { createIndicatorColDef } from "@/grids/common/colDef/createIndicatorColDef";
+import { usd0Formatter } from "@/grids/common/valueFormatter/priceFormatter";
+import { number2Formatter } from "@/grids/common/valueFormatter/numberFormatter";
+import { percent2Formatter } from "@/grids/common/valueFormatter/percentFormatter";
 
 export const RISK_COLUMN_DEFS: ColDef<IRisk>[] = [
   createIndicatorColDef<IRisk, "riskType">({
@@ -24,31 +27,32 @@ export const RISK_COLUMN_DEFS: ColDef<IRisk>[] = [
     field: "VaR",
     headerName: "VaR",
     type: "numericColumn",
-    valueFormatter: (params) => `$${params.value?.toLocaleString()}`,
+    valueFormatter: usd0Formatter,
+    sort: "desc",
   },
   {
     field: "expectedShortfall",
     headerName: "Expected Shortfall",
     type: "numericColumn",
-    valueFormatter: (params) => `$${params.value?.toLocaleString()}`,
+    valueFormatter: usd0Formatter,
   },
   {
     field: "volatility",
     headerName: "Volatility",
     type: "numericColumn",
-    valueFormatter: (params) => `${(params.value * 100)?.toFixed(2)}%`,
+    valueFormatter: percent2Formatter,
   },
   {
     field: "beta",
     headerName: "Beta",
     type: "numericColumn",
-    valueFormatter: (params) => params.value?.toFixed(2),
+    valueFormatter: number2Formatter,
   },
   {
     field: "correlation",
     headerName: "Correlation",
     type: "numericColumn",
-    valueFormatter: (params) => params.value?.toFixed(2),
+    valueFormatter: number2Formatter,
   },
   {
     field: "riskDate",

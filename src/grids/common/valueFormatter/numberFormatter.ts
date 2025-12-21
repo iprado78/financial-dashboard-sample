@@ -1,7 +1,8 @@
 import { ValueFormatterParams } from "ag-grid-community";
 
-interface NumberFormatterConfig {
+export interface NumberFormatterConfig {
   decimals?: number;
+  makePercent?: boolean;
 }
 
 export function createNumberFormatter(config: NumberFormatterConfig = {}) {
@@ -12,9 +13,13 @@ export function createNumberFormatter(config: NumberFormatterConfig = {}) {
       return "";
     }
 
-    const num = Number(params.value);
+    let num = Number(params.value);
     if (isNaN(num)) {
       return String(params.value);
+    }
+
+    if (config.makePercent) {
+      num = num * 100;
     }
 
     return num.toLocaleString("en-US", {
@@ -24,4 +29,8 @@ export function createNumberFormatter(config: NumberFormatterConfig = {}) {
   };
 }
 
-export const quantityFormatter = createNumberFormatter({ decimals: 0 });
+export const number0Formatter = createNumberFormatter({ decimals: 0 });
+
+export const number2Formatter = createNumberFormatter({
+  decimals: 2,
+});

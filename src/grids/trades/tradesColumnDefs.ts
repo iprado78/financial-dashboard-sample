@@ -1,24 +1,12 @@
 import { ColDef } from "ag-grid-community";
 import { createCompanyLogoWithTextCellRenderer } from "../common/cellRenderer/createCompanyLogoWithTextCellRenderer";
 import { ITrade } from "@/services/trades/TradesService";
-import { quantityFormatter } from "@/grids/common/valueFormatter/numberFormatter";
+import { number0Formatter } from "@/grids/common/valueFormatter/numberFormatter";
 import { createBinaryCellClassRules } from "@/grids/common/cellClass/createBinaryCellClassRules";
 import { createColoredPillCellRenderer } from "@/grids/common/cellRenderer/createColoredPillCellRenderer";
 import { getTradeStatusColorClass } from "@/services/trades/tradesColors";
 import { createIndicatorColDef } from "@/grids/common/colDef/createIndicatorColDef";
-
-// Currency symbol mapping
-const CURRENCY_SYMBOLS: Record<ITrade["currency"], string> = {
-  USD: "$",
-  EUR: "€",
-  GBP: "£",
-  JPY: "¥",
-};
-
-function getCurrencySymbol(currency: string): string {
-  const upperCurrency = currency?.toUpperCase() as ITrade["currency"];
-  return CURRENCY_SYMBOLS[upperCurrency] || currency || "$";
-}
+import { usd2Formatter } from "@/grids/common/valueFormatter/priceFormatter";
 
 export const TRADES_COLUMN_DEFS: ColDef[] = [
   createIndicatorColDef<ITrade, "status">({
@@ -26,6 +14,7 @@ export const TRADES_COLUMN_DEFS: ColDef[] = [
     getColor: getTradeStatusColorClass,
   }),
   { field: "trader", headerName: "Trader", minWidth: 100 },
+  { field: "id", headerName: "Trade ID", minWidth: 120 },
   { field: "accountId", headerName: "Account ID", minWidth: 120 },
   { field: "positionId", headerName: "Position ID", minWidth: 120 },
   {
@@ -47,31 +36,28 @@ export const TRADES_COLUMN_DEFS: ColDef[] = [
   },
   {
     field: "price",
-    headerName: "Price",
+    headerName: "Price (USD)",
     type: "numericColumn",
-    valueFormatter: (params) => {
-      const currency = params.data?.currency;
-      const symbol = getCurrencySymbol(currency);
-      return `${symbol}${params.value?.toFixed(2)}`;
-    },
+    valueFormatter: usd2Formatter,
   },
+  { field: "currency", headerName: "Currency", minWidth: 80 },
   {
     field: "quantity",
     headerName: "Quantity",
     type: "numericColumn",
-    valueFormatter: quantityFormatter,
+    valueFormatter: number0Formatter,
   },
   {
     field: "filledQty",
     headerName: "Filled Qty",
     type: "numericColumn",
-    valueFormatter: quantityFormatter,
+    valueFormatter: number0Formatter,
   },
   {
     field: "unfilledQty",
     headerName: "Unfilled Qty",
     type: "numericColumn",
-    valueFormatter: quantityFormatter,
+    valueFormatter: number0Formatter,
   },
   {
     field: "side",
@@ -83,12 +69,12 @@ export const TRADES_COLUMN_DEFS: ColDef[] = [
       errorValue: "SELL",
     }),
   },
-
   {
     field: "orderTime",
     headerName: "Order Time",
     minWidth: 160,
     valueFormatter: (params) => new Date(params.value).toLocaleString(),
+    sort: "desc",
   },
   {
     field: "lastUpdate",
@@ -96,6 +82,4 @@ export const TRADES_COLUMN_DEFS: ColDef[] = [
     minWidth: 160,
     valueFormatter: (params) => new Date(params.value).toLocaleString(),
   },
-  { field: "currency", headerName: "Currency", minWidth: 80 },
-  { field: "id", headerName: "Trade ID", minWidth: 120 },
 ];

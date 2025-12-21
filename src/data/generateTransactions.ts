@@ -1,3 +1,4 @@
+import { CURRENCIES } from "@/services/currencies/CurrenciesService";
 import {
   ITransaction,
   TRANSACTION_CATEGORIES,
@@ -45,7 +46,7 @@ export function generateTransactions(): ITransaction[] {
       )}`,
       transactionType,
       amount,
-      currency: "USD",
+      currency: CURRENCIES[Math.floor(Math.random() * CURRENCIES.length)],
       description: `${
         transactionType === "DEBIT" ? "Wire Transfer to" : "Deposit from"
       } ${COUNTERPARTIES[Math.floor(Math.random() * COUNTERPARTIES.length)]}`,

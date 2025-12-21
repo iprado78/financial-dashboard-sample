@@ -3,6 +3,8 @@ import { ICredit } from "@/services/credit/CreditService";
 import { getCreditRatingColorClass } from "@/services/credit/creditColors";
 import { createColoredPillCellRenderer } from "@/grids/common/cellRenderer/createColoredPillCellRenderer";
 import { createIndicatorColDef } from "@/grids/common/colDef/createIndicatorColDef";
+import { usd0Formatter } from "@/grids/common/valueFormatter/priceFormatter";
+import { percent2Formatter } from "@/grids/common/valueFormatter/percentFormatter";
 
 export const CREDIT_COLUMN_DEFS: ColDef<ICredit>[] = [
   createIndicatorColDef<ICredit, "creditRating">({
@@ -25,30 +27,31 @@ export const CREDIT_COLUMN_DEFS: ColDef<ICredit>[] = [
     field: "exposure",
     headerName: "Exposure",
     type: "numericColumn",
-    valueFormatter: (params) => `$${params.value?.toLocaleString()}`,
+    valueFormatter: usd0Formatter,
   },
   {
     field: "collateral",
     headerName: "Collateral",
     type: "numericColumn",
-    valueFormatter: (params) => `$${params.value?.toLocaleString()}`,
+    valueFormatter: usd0Formatter,
+    sort: "desc",
   },
   {
     field: "netExposure",
     headerName: "Net Exposure",
     type: "numericColumn",
-    valueFormatter: (params) => `$${params.value?.toLocaleString()}`,
+    valueFormatter: usd0Formatter,
   },
   {
     field: "riskLimit",
     headerName: "Risk Limit",
     type: "numericColumn",
-    valueFormatter: (params) => `$${params.value?.toLocaleString()}`,
+    valueFormatter: usd0Formatter,
   },
   {
     field: "utilizationPercent",
     headerName: "Utilization %",
     type: "numericColumn",
-    valueFormatter: (params) => `${params.value?.toFixed(2)}%`,
+    valueFormatter: percent2Formatter,
   },
 ];

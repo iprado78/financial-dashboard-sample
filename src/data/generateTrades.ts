@@ -1,7 +1,7 @@
+import { CURRENCIES } from "@/services/currencies/CurrenciesService";
 import { SYMBOLS_UNIVERSE } from "./symbolsUniverse";
 import {
   ITrade,
-  TRADE_CURRENCIES,
   TRADE_SIDES,
   TRADE_STATUSES,
 } from "@/services/trades/TradesService";
@@ -103,8 +103,7 @@ export function generateTrades(): ITrade[] {
         trader: traders[Math.floor(Math.random() * traders.length)],
         orderTime,
         lastUpdate,
-        currency:
-          TRADE_CURRENCIES[Math.floor(Math.random() * TRADE_CURRENCIES.length)],
+        currency: CURRENCIES[Math.floor(Math.random() * CURRENCIES.length)],
       });
 
       tradeIdCounter++;
