@@ -4,26 +4,27 @@ import {
   isSubroute,
   PAGE_ROUTES,
 } from "@/nav/NavigationConfig";
-import { NavIcon } from "@/components/Header/Nav/icons/NavIcon";
+import { SvgIcon } from "@/components/SvgIcon/SvgIcon";
 import {
-  CHART_ICON_DEFINITION,
   HOME_ICON_DEFINITION,
   TABLE_ICON_DEFINITION,
-} from "@/components/Header/Nav/icons/iconDefnitions";
+  CHART_ICON_DEFINITION,
+} from "@/components/SvgIcon/iconDefinitions";
+
 import { ReactNode } from "react";
 
 type NavIcon = ({ className }: { className?: string }) => ReactNode;
 
 const HomeIcon: NavIcon = ({ className }) => {
-  return <NavIcon className={className} definition={HOME_ICON_DEFINITION} />;
+  return <SvgIcon className={className} definition={HOME_ICON_DEFINITION} />;
 };
 
 const TableIcon: NavIcon = ({ className }) => {
-  return <NavIcon className={className} definition={TABLE_ICON_DEFINITION} />;
+  return <SvgIcon className={className} definition={TABLE_ICON_DEFINITION} />;
 };
 
 const ChartIcon: NavIcon = ({ className }) => {
-  return <NavIcon className={className} definition={CHART_ICON_DEFINITION} />;
+  return <SvgIcon className={className} definition={CHART_ICON_DEFINITION} />;
 };
 
 const getIconForRoute = (pathname: string) => {

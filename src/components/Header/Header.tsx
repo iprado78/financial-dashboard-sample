@@ -1,5 +1,5 @@
 import EngineersGateLogo from "@/assets/EngineersGateLogo";
-import { Nav } from "@/components/Header/Nav/Nav";
+import { Nav } from "@/components/Header/Nav";
 import LightDarkModeToggle from "@/components/LightDarkModeToggle";
 import { Link } from "@tanstack/react-router";
 
