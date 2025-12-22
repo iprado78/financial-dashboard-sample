@@ -5,14 +5,20 @@ import {
   isFairCreditRating,
   isGoodCreditRating,
   isPoorCreditRating,
+  isStrongCreditRating,
 } from "./CreditService";
 
 export function getCreditRatingColorClass(rating: CreditRating): string {
   if (isExcellentCreditRating(rating)) {
     return getColorClass("success");
   }
+
+  if (isStrongCreditRating(rating)) {
+    return getColorClass("success");
+  }
+
   if (isGoodCreditRating(rating)) {
-    return getColorClass("info");
+    return getColorClass("success");
   }
   if (isFairCreditRating(rating)) {
     return getColorClass("warning");

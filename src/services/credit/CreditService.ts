@@ -19,9 +19,13 @@ export const CREDIT_RATINGS = [
 
 export type CreditRating = (typeof CREDIT_RATINGS)[number];
 
-export const EXCELLENT_CREDIT_RATINGS = ["AAA", "AA+", "AA"] as const;
+export const EXCELLENT_CREDIT_RATINGS = ["AAA"] as const;
 
 export type ExcellentCreditRating = (typeof EXCELLENT_CREDIT_RATINGS)[number];
+
+export const STRONG_CREDIT_RATINGS = ["AA+", "AA", "AA-"] as const;
+
+export type StrongCreditRating = (typeof STRONG_CREDIT_RATINGS)[number];
 
 export const GOOD_CREDIT_RATINGS = ["A+", "A", "A-"] as const;
 
@@ -45,6 +49,9 @@ function createCreditRatingTypeGuard<T extends readonly CreditRating[]>(
 
 export const isExcellentCreditRating = createCreditRatingTypeGuard(
   EXCELLENT_CREDIT_RATINGS
+);
+export const isStrongCreditRating = createCreditRatingTypeGuard(
+  STRONG_CREDIT_RATINGS
 );
 export const isGoodCreditRating =
   createCreditRatingTypeGuard(GOOD_CREDIT_RATINGS);
