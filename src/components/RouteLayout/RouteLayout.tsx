@@ -47,6 +47,19 @@ export default function RouteLayout({
 
   return (
     <>
+      {/* Right Column - appears at top on mobile, fixed on desktop */}
+      <RightColumnLayout>
+        <LayoutItemSelector
+          title={itemSelectorTitle}
+          availableItems={availableItems}
+          selectedItems={selectedItems}
+          onItemSelect={onItemSelect}
+          onItemRemove={onItemRemove}
+          formatLabel={formatLabel}
+          highlightButton={selectedItems.length === 0}
+        />
+      </RightColumnLayout>
+
       <RouteLayoutWrapper>
         {showEmptyState ? (
           <EmptyState
@@ -70,18 +83,6 @@ export default function RouteLayout({
           </>
         )}
       </RouteLayoutWrapper>
-
-      <RightColumnLayout>
-        <LayoutItemSelector
-          title={itemSelectorTitle}
-          availableItems={availableItems}
-          selectedItems={selectedItems}
-          onItemSelect={onItemSelect}
-          onItemRemove={onItemRemove}
-          formatLabel={formatLabel}
-          highlightButton={selectedItems.length === 0}
-        />
-      </RightColumnLayout>
     </>
   );
 }

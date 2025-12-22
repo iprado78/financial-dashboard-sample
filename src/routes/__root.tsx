@@ -25,14 +25,16 @@ function RouteComponent() {
       ShutdownTasks.run();
     };
   }, []);
+
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-slate-900 dark:text-white">
       <Header />
-      <main className="mt-8 px-8 md:pr-[calc(24rem+4rem)]">
-        <Outlet />
-      </main>
-      {/* Default Right Column (only show if route doesn't have custom one) */}
-      {!hasCustomRightColumn && <RightColumnLayout />}
+      <div className="mt-4 md:mt-8 px-4 md:px-8 md:pr-[calc(24rem+4rem)]">
+        {!hasCustomRightColumn && <RightColumnLayout />}
+        <main className="mt-6 md:mt-0">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
 import { MessagesArea } from "@/components/ClaudeChat/ClaudeWidget/MessageArea";
 import { ChatInput } from "@/components/ClaudeChat/ClaudeWidget/ChatInput";
 import { ChatHeader } from "@/components/ClaudeChat/ClaudeWidget/ChatHeader";
@@ -12,23 +11,6 @@ export interface Message {
   content: string;
   timestamp: Date;
 }
-
-interface MinimizedButtonProps {
-  onClick: () => void;
-}
-
-const MINIMIZED_BUTTON_CLASS =
-  "absolute bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-all z-50";
-
-const MINIMIZED_ICON_CLASS = "h-6 w-6";
-
-const MinimizedButton = ({ onClick }: MinimizedButtonProps) => {
-  return (
-    <button onClick={onClick} className={MINIMIZED_BUTTON_CLASS}>
-      <ChatBubbleLeftRightIcon className={MINIMIZED_ICON_CLASS} />
-    </button>
-  );
-};
 
 interface ChatWidgetProps {
   onSendMessage: (message: string) => Promise<void>;
@@ -47,7 +29,6 @@ export default function ChatWidget({
   isLoading,
 }: ChatWidgetProps) {
   const [input, setInput] = useState("");
-  const [isMinimized, setIsMinimized] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -69,15 +50,7 @@ export default function ChatWidget({
 
   return (
     <div className={CONTAINER_CLASS}>
-      {isMinimized && (
-        <MinimizedButton onClick={() => setIsMinimized(false)} />
-      )}
-      {!isMinimized && (
-        <>
-      <ChatHeader
-        onClearChat={onClearChat}
-        onMinimize={() => setIsMinimized(true)}
-      />
+      <ChatHeader onClearChat={onClearChat} />
       <MessagesArea
         messages={messages}
         isLoading={isLoading}
@@ -89,8 +62,6 @@ export default function ChatWidget({
         onInputChange={setInput}
         onSubmit={handleSubmit}
       />
-        </>
-      )}
     </div>
   );
 }

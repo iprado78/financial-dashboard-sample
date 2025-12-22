@@ -5,5 +5,5 @@ interface RouteLayoutWrapperProps {
 }
 
 export const RouteLayoutWrapper = ({ children }: RouteLayoutWrapperProps) => {
-  return <div className="w-full">{children}</div>;
+  return <div className="w-full mt-6 md:mt-0">{children}</div>;
 };

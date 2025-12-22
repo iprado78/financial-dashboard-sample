@@ -1,6 +1,5 @@
 import { ICON_SIZE_CLASS } from "@/components/ClaudeChat/ClaudeWidget/ChatWidget";
 import {
-  ArrowsPointingInIcon,
   ChatBubbleLeftRightIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
@@ -58,10 +57,9 @@ const HEADER_ACTIONS_CONTAINER_CLASS = "flex items-center space-x-2";
 
 interface HeaderActionsProps {
   onClearChat: () => void;
-  onMinimize: () => void;
 }
 
-const HeaderActions = ({ onClearChat, onMinimize }: HeaderActionsProps) => {
+const HeaderActions = ({ onClearChat }: HeaderActionsProps) => {
   return (
     <div className={HEADER_ACTIONS_CONTAINER_CLASS}>
       <IconButton
@@ -69,12 +67,6 @@ const HeaderActions = ({ onClearChat, onMinimize }: HeaderActionsProps) => {
         onClick={onClearChat}
         title="Clear chat history"
         variant="danger"
-      />
-      <IconButton
-        icon={ArrowsPointingInIcon}
-        onClick={onMinimize}
-        title="Minimize chat"
-        variant="neutral"
       />
     </div>
   );
@@ -85,14 +77,13 @@ const HEADER_CLASS =
 
 interface ChatHeaderProps {
   onClearChat: () => void;
-  onMinimize: () => void;
 }
 
-export const ChatHeader = ({ onClearChat, onMinimize }: ChatHeaderProps) => {
+export const ChatHeader = ({ onClearChat }: ChatHeaderProps) => {
   return (
     <div className={HEADER_CLASS}>
       <HeaderTitle icon={ChatBubbleLeftRightIcon} title="Claude Assistant" />
-      <HeaderActions onClearChat={onClearChat} onMinimize={onMinimize} />
+      <HeaderActions onClearChat={onClearChat} />
     </div>
   );
 };
