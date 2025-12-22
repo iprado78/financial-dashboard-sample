@@ -6,7 +6,14 @@ import {
   ComboboxOptions,
 } from "@headlessui/react";
 import { useState } from "react";
-import { INPUT_COMBOBOX_CLASS, TEXT_MUTED_CLASS } from "@/styles/designSystem";
+import {
+  INPUT_COMBOBOX_CLASS,
+  TEXT_MUTED_CLASS,
+  TEXT_BODY_CLASS,
+  SHADOW_MEDIUM_CLASS,
+  BORDER_BASE_CLASS,
+  ROUNDED_MEDIUM_CLASS,
+} from "@/styles/designSystem";
 
 interface LayoutItemSelectorModalProps {
   isOpen: boolean;
@@ -18,15 +25,14 @@ interface LayoutItemSelectorModalProps {
   formatLabel: (item: string) => string;
 }
 
-const CONTAINER_CLASS = "relative min-h-[300px]";
+const CONTAINER_CLASS = "relative min-h-[300px] w-full";
 
-const OPTIONS_CONTAINER_CLASS =
-  "absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-slate-100 dark:bg-slate-700 py-1 shadow-lg border border-gray-200 dark:border-gray-700 focus:outline-none empty:invisible";
+// Match ag-grid scrollbar style: thin, subtle, auto-hide behavior
+const OPTIONS_CONTAINER_CLASS = `absolute z-10 mt-2 max-h-60 w-full overflow-auto ${ROUNDED_MEDIUM_CLASS} bg-gray-50 dark:bg-gray-900 py-1 ${SHADOW_MEDIUM_CLASS} ${BORDER_BASE_CLASS} focus:outline-none empty:invisible scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-800 hover:scrollbar-thumb-gray-400 dark:hover:scrollbar-thumb-gray-500`;
 
-const OPTION_CLASS =
-  "relative cursor-pointer select-none py-2 px-4 data-[focus]:bg-primary-light data-[focus]:dark:bg-primary-dark data-[focus]:text-primary-dark data-[focus]:dark:text-primary-light text-gray-900 dark:text-gray-100 text-sm";
+const OPTION_CLASS = `relative cursor-pointer select-none py-3 px-4 border-b border-gray-200 dark:border-gray-700 last:border-b-0 data-[focus]:bg-primary-light data-[focus]:dark:bg-primary-dark data-[focus]:text-primary-dark data-[focus]:dark:text-primary-light ${TEXT_BODY_CLASS} transition-colors`;
 
-const EMPTY_STATE_CLASS = `py-2 px-4 ${TEXT_MUTED_CLASS} text-sm`;
+const EMPTY_STATE_CLASS = `py-3 px-4 ${TEXT_MUTED_CLASS} text-sm`;
 
 interface EmptyStateProps {
   hasQuery: boolean;
@@ -94,7 +100,7 @@ export function LayoutItemSelectorModal({
       <Combobox value={null} onChange={handleSelect} immediate>
         <div className={CONTAINER_CLASS}>
           <ComboboxInput
-            className={INPUT_COMBOBOX_CLASS}
+            className={`${INPUT_COMBOBOX_CLASS} w-full text-gray-900 dark:text-gray-100`}
             placeholder="Type to filter..."
             onChange={(event) => setQuery(event.target.value)}
             value={query}
