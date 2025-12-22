@@ -29,9 +29,9 @@ function RouteComponent() {
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-slate-900 dark:text-white">
       <Header />
-      <div className="mt-4 md:mt-8 px-4 md:px-8 md:pr-[calc(24rem+4rem)]">
+      <div className="mt-4 lg:mt-8 px-4 lg:px-8 lg:pr-[calc(24rem+4rem)]">
         {!hasCustomRightColumn && <RightColumnLayout />}
-        <main className="mt-6 md:mt-0">
+        <main className="mt-6 lg:mt-0">
           <Outlet />
         </main>
       </div>
