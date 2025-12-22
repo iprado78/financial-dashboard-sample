@@ -26,8 +26,7 @@ function getInitalDarkMode() {
   const { getNestedValue } = useLocalStorage("globalSettings");
   const initalDarkMode =
     getNestedValue(["isDarkMode"]) == undefined
-      ? window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? true // Default to dark mode when no preference is stored
       : getNestedValue(["isDarkMode"]);
   initalDarkMode
     ? document.documentElement.classList.add("dark")
