@@ -1,6 +1,12 @@
 # Design System Documentation
 
+**[← Back to Documentation Index](./DOCUMENTATION.md)**
+
 This document outlines the design system patterns and conventions used throughout the Financial Dashboard application.
+
+**Related Documentation:**
+- [Main README](./README.md) - Getting started with the application
+- [Chat Setup](./CHAT_SETUP.md) - AI-powered interface
 
 ## Table of Contents
 

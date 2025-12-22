@@ -2,6 +2,15 @@
 
 A modern trading dashboard application built with React, featuring real-time trade tables, portfolio analytics, and interactive candlestick charts.
 
+## 📚 Documentation
+
+**[→ Full Documentation Index](./DOCUMENTATION.md)** - Complete guide to features, development, and architecture
+
+Quick Links:
+- **[AI Chat Setup](./CHAT_SETUP.md)** - Control the app with natural language
+- **[Design System](./DESIGN_SYSTEM.md)** - UI patterns and component guidelines
+- **[Implementation Guide](./src/services/claude/IMPLEMENTATION_GUIDE.md)** - Adding Claude AI tools
+
 ## Getting Started
 
 This project requires Node.js version 18.

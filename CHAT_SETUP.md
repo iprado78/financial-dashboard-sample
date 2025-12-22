@@ -1,7 +1,13 @@
 # Claude Chat Widget Setup
 
+**[← Back to Documentation Index](./DOCUMENTATION.md)**
+
 ## Overview
 This application includes an AI-powered chat widget that allows users to interact with the dashboard using natural language commands.
+
+**Related Documentation:**
+- [Main README](./README.md) - Getting started with the application
+- [Implementation Guide](./src/services/claude/IMPLEMENTATION_GUIDE.md) - Adding new AI tools
 
 ## Features
 - **Table Filtering**: Ask Claude to filter any table by any criteria

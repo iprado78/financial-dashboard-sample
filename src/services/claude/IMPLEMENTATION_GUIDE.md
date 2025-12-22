@@ -1,7 +1,14 @@
 # Claude API Integration Implementation Guide
 
+**[← Back to Documentation Index](../../../DOCUMENTATION.md)**
+
 ## Overview
-This guide explains how to wire up the new Claude tools in `ClaudeChatIntegration.tsx`. The tools have been designed to minimize state and API costs by directly manipulating component state/stores.
+This guide explains how to wire up Claude AI tools in `ClaudeChatIntegration.tsx`. The tools have been designed to minimize state and API costs by directly manipulating component state/stores.
+
+**Related Documentation:**
+- [Chat Setup](../../../CHAT_SETUP.md) - User-facing chat widget documentation
+- [Main README](../../../README.md) - Getting started with the application
+- [Design System](../../../DESIGN_SYSTEM.md) - UI component guidelines
 
 ## Tool Handler Implementation
 
