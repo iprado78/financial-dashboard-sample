@@ -13,10 +13,10 @@ export class SymbolsService {
 
   loadSnapshot = async () => {
     // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
-    const symbols = SYMBOLS_UNIVERSE.map(s => s.ticker);
-    this.#symbols$.next(symbols);
+    const symbols = SYMBOLS_UNIVERSE.map((s) => s.ticker);
+    this.#symbols$.next(symbols.sort((a, b) => a.localeCompare(b)));
   };
 
   init() {
