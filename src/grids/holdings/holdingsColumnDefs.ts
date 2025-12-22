@@ -1,15 +1,16 @@
-import { ColDef } from "ag-grid-community";
-import { number0Formatter } from "@/grids/common/valueFormatter/numberFormatter";
-import { createIndicatorColDef } from "../common/colDef/createIndicatorColDef";
 import { createBinaryCellClassRules } from "@/grids/common/cellClass/createBinaryCellClassRules";
-import { IHolding } from "@/services/holdings/HoldingsService";
-import { getPnlColorClass } from "@/services/holdings/holdingsColors";
 import { createCompanyLogoWithTextCellRenderer } from "@/grids/common/cellRenderer/createCompanyLogoWithTextCellRenderer";
 import {
-  usd0Formatter,
-  usd2Formatter,
-} from "@/grids/common/valueFormatter/priceFormatter";
+  number0Formatter,
+  number2Formatter,
+} from "@/grids/common/valueFormatter/numberFormatter";
 import { normalizedPercent2Formatter } from "@/grids/common/valueFormatter/percentFormatter";
+import { usd0Formatter } from "@/grids/common/valueFormatter/priceFormatter";
+import { getPnlColorClass } from "@/services/holdings/holdingsColors";
+import { IHolding } from "@/services/holdings/HoldingsService";
+import { ColDef } from "ag-grid-community";
+
+import { createIndicatorColDef } from "../common/colDef/createIndicatorColDef";
 
 export const HOLDINGS_COLUMN_DEFS: ColDef<IHolding>[] = [
   createIndicatorColDef<IHolding, "unrealizedGainLoss">({
@@ -58,7 +59,7 @@ export const HOLDINGS_COLUMN_DEFS: ColDef<IHolding>[] = [
         return params.data?.unrealizedGainLoss > 0;
       },
     }),
-    valueFormatter: usd2Formatter,
+    valueFormatter: number2Formatter,
   },
   {
     field: "weight",
