@@ -10,6 +10,11 @@ export const TradesTable = () => {
     tradesService.getTrades
   );
   return (
-    <Table rowIdField={"id"} data={trades} columnDefs={TRADES_COLUMN_DEFS} />
+    <Table
+      rowIdField={"id"}
+      data={trades}
+      columnDefs={TRADES_COLUMN_DEFS}
+      tableName="trades"
+    />
   );
 };

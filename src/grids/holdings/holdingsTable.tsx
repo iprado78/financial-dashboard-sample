@@ -17,6 +17,7 @@ export const HoldingsTable = () => {
       }
       data={holdings}
       columnDefs={HOLDINGS_COLUMN_DEFS}
+      tableName="holdings"
     />
   );
 };

@@ -3,12 +3,15 @@ import {
   ChatBubbleLeftRightIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
+import { PILL_BASE_CLASS } from "@/styles/designSystem";
 
 const HEADER_TITLE_CONTAINER_CLASS = "flex items-center space-x-2";
 
 const HEADER_TITLE_ICON_CLASS = "h-5 w-5 text-blue-600";
 
 const HEADER_TITLE_TEXT_CLASS = "font-semibold";
+
+const BETA_BADGE_CLASS = `${PILL_BASE_CLASS} bg-warning-light text-warning-dark dark:bg-warning-dark dark:text-warning-light border border-warning text-xs px-1.5 py-0.5 ml-2`;
 
 interface HeaderTitleProps {
   icon: React.ComponentType<{ className?: string }>;
@@ -20,6 +23,7 @@ const HeaderTitle = ({ icon: Icon, title }: HeaderTitleProps) => {
     <div className={HEADER_TITLE_CONTAINER_CLASS}>
       <Icon className={HEADER_TITLE_ICON_CLASS} />
       <h3 className={HEADER_TITLE_TEXT_CLASS}>{title}</h3>
+      <span className={BETA_BADGE_CLASS}>BETA</span>
     </div>
   );
 };

@@ -112,7 +112,7 @@ function RouteComponent() {
         <LoadingState message={`Loading ${symbol.toUpperCase()}...`} className="w-full text-center" />
       );
     } else {
-      content = <CandleStick title="" data={symbolData.data} />;
+      content = <CandleStick title="" data={symbolData.data} symbol={symbol} />;
     }
 
     return {

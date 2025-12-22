@@ -14,6 +14,7 @@ export const CreditTable = () => {
       rowIdField={"counterpartyId"}
       data={credits}
       columnDefs={CREDIT_COLUMN_DEFS}
+      tableName="credit"
     />
   );
 };

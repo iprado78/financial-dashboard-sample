@@ -14,6 +14,7 @@ export const TransactionsTable = () => {
       rowIdField={"id"}
       data={transactions}
       columnDefs={TRANSACTIONS_COLUMN_DEFS}
+      tableName="transactions"
     />
   );
 };

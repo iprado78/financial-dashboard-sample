@@ -14,6 +14,7 @@ type CandleStickEntry = [number, number, number, number, number];
 interface CandleStickProps {
   title: string;
   data: CandleStickEntry[];
+  symbol?: string;
   height?: number;
   width?: string;
 }
